@@ -1,5 +1,7 @@
 # obsidian-fashion · Obsidian 时装柜
 
+![obsidian-fashion — Themes fashioned from the web, worn in two ways](assets/poster.png)
+
 > **Themes *fashioned* from the web, *worn* in two ways (dark & light).**
 > 从万千网页 UI 风格中裁制而成的 Obsidian 主题——每件外套，两面穿。
 
