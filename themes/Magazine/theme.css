@@ -1,0 +1,404 @@
+/* ==========================================================================
+   Magazine — 杂志跨页排版（light）
+   来源：承袭 Typeset 导出器（github.com/Fogecode/Typeset）的 Magazine 主题【只读提取】
+   （tokens 直翻 + 母题移植：居中报头 + 双细线、h2 上方牛血红短杠、h3 斜体、
+     首段首字下沉、居中大引号引用、居中短分隔线）
+   ---------------------------------------------------------------------------
+   忠实静态移植，无特效开关（无动画元素）。
+   展示衬线是灵魂：标题直写 display 衬线栈、正文直写 serif 栈（宋体兜底 CJK）。
+   不想要首字下沉：删除「首字下沉」一节即可。
+   明暗自适应：本主题在深/浅基础模式下都应用同一套配色，切主题即所见。
+   ========================================================================== */
+
+/* ---------- 变量映射层（tokens 直译） ---------- */
+body.theme-light {
+  --background-primary: #fbf9f6;
+  --background-primary-alt: #ffffff;
+  --background-secondary: #f6f2ec;
+  --background-secondary-alt: #f3efea;
+  --background-modifier-border: #ded7cf;
+  --background-modifier-border-hover: #cfc5b8;
+  --background-modifier-border-focus: #b23a2f;
+  --background-modifier-hover: rgba(178, 58, 47, 0.05);
+  --background-modifier-active-hover: #f3efea;
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-box-shadow: rgba(28, 26, 24, 0.4);
+  --background-modifier-success: rgba(90, 130, 80, 0.12);
+  --background-modifier-error: rgba(178, 58, 47, 0.12);
+  --text-on-accent: #ffffff;
+  --accent-h: 5;
+  --accent-s: 58%;
+  --accent-l: 44%;
+  --text-accent: #b23a2f;
+  --text-accent-hover: #c94a3e;
+
+  --interactive-normal: #f3efea;
+  --interactive-hover: #ece6dd;
+  --interactive-accent: #b23a2f;
+  --interactive-accent-hover: #c94a3e;
+
+  --text-normal: #1c1a18;
+  --text-muted: #6f675f;
+  --text-faint: #a09789;
+  --text-selection: rgba(178, 58, 47, 0.15);
+  --text-highlight-bg: rgba(178, 58, 47, 0.13);
+  --text-error: #b23a2f;
+
+  --link-color: #b23a2f;
+  --link-color-hover: #c94a3e;
+  --link-external-color: #b23a2f;
+  --link-external-color-hover: #c94a3e;
+  --link-unresolved-color: rgba(178, 58, 47, 0.55);
+
+  --tag-color: #b23a2f;
+  --tag-background: transparent;
+  --tag-background-hover: rgba(178, 58, 47, 0.08);
+  --tag-border-color: #b23a2f;
+
+  --titlebar-background: #f6f2ec;
+  --titlebar-background-focused: #fbf9f6;
+  --titlebar-text-color: #6f675f;
+  --titlebar-text-color-focused: #1c1a18;
+
+  --tab-outline-color: #ded7cf;
+  --tab-text-color: #6f675f;
+  --tab-text-color-focused: #1c1a18;
+  --tab-text-color-focused-active: #b23a2f;
+
+  --radius-s: 2px;
+  --radius-m: 2px;
+  --radius-l: 3px;
+  --radius-xl: 4px;
+  --input-radius: 2px;
+  --button-radius: 2px;
+  --tab-radius: 2px;
+  --checkbox-radius: 2px;
+
+  --code-background: #f3efea;
+  --code-normal: #3b3330;
+  --blockquote-border-color: #ded7cf;
+  --table-header-background: #f3efea;
+
+  --h1-color: #1c1a18;
+  --h2-color: #1c1a18;
+  --h3-color: #1c1a18;
+  --h4-color: #6f675f;
+  --h5-color: #6f675f;
+  --h6-color: #6f675f;
+  --inline-title-color: #1c1a18;
+
+  --nav-item-background-active: #f3efea;
+  --nav-item-color-active: #1c1a18;
+
+  --font-interface-theme: "Segoe UI", -apple-system, "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-text-theme: Georgia, "Iowan Old Style", "Times New Roman", "Songti SC", "Noto Serif CJK SC", SimSun, serif;
+  --font-monospace-theme: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* ---------- 字体直写（绕过外观设置的字体覆盖） ---------- */
+
+/* 正文：serif */
+:is(body.theme-light, body.theme-dark) .markdown-source-view,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view {
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", "Songti SC", "Noto Serif CJK SC", SimSun, serif;
+  line-height: 1.78;
+}
+
+/* 标题：display 衬线（Windows 落到 Georgia/宋体） */
+:is(body.theme-light, body.theme-dark) .inline-title,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h1,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h2,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h3,
+:is(body.theme-light, body.theme-dark) .cm-header-1,
+:is(body.theme-light, body.theme-dark) .cm-header-2,
+:is(body.theme-light, body.theme-dark) .cm-header-3 {
+  font-family: "Playfair Display", "Didot", "Bodoni MT", Georgia, "Songti SC", SimSun, serif;
+}
+
+/* ---------- 母题层 ---------- */
+
+/* 报头：居中巨型 display 衬线 + 下方双细线（masthead double rules） */
+:is(body.theme-light, body.theme-dark) .inline-title {
+  font-size: clamp(2.4rem, 1.6rem + 3.6vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  font-weight: 700;
+  max-width: 24ch;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-bottom: 0.5em;
+  border-bottom: 4px double #ded7cf;
+}
+
+/* h1：跨页大标题 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h1 {
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.7rem);
+  letter-spacing: -0.024em;
+  line-height: 1.1;
+}
+
+/* h2：上方牛血红 3px 短杠，无底线 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h2 {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-top: 2.8em;
+  font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.14;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h2::before {
+  content: "";
+  display: block;
+  width: 3.4rem;
+  height: 3px;
+  margin-bottom: 0.5em;
+  background: #b23a2f;
+}
+
+/* h3：斜体 600 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h3 {
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-size: clamp(1.16rem, 1.06rem + 0.5vw, 1.38rem);
+}
+
+/* 首字下沉（不想要：删除这一节） */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view p:first-of-type::first-letter {
+  float: left;
+  font-family: "Playfair Display", "Didot", "Bodoni MT", Georgia, "Songti SC", SimSun, serif;
+  font-size: 3.9em;
+  line-height: 0.82;
+  font-weight: 700;
+  padding: 0.06em 0.12em 0 0;
+  margin-right: 0.04em;
+  color: #b23a2f;
+}
+
+/* 引用：居中斜体 + 上下细线 + 大引号 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view blockquote {
+  border-left: 0;
+  margin: 2.2em 0;
+  text-align: center;
+  font-size: 1.22em;
+  font-style: italic;
+  line-height: 1.55;
+  color: #1c1a18;
+  border-top: 1px solid #ded7cf;
+  border-bottom: 1px solid #ded7cf;
+  padding: 1.1rem 0;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-preview-view blockquote::before {
+  content: "\201C";
+  display: block;
+  font-family: "Playfair Display", "Didot", "Bodoni MT", Georgia, serif;
+  font-size: 2.6em;
+  line-height: 0.5;
+  color: #b23a2f;
+  margin-bottom: 0.28em;
+}
+
+/* 链接：牛血红淡下划线 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view a {
+  text-decoration-color: rgba(178, 58, 47, 0.35);
+}
+
+/* 代码块：小号 + 牛血红左缘 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view pre,
+:is(body.theme-light, body.theme-dark) .markdown-source-view .HyperMD-codeblock {
+  font-size: 0.83rem;
+  border-left: 3px solid #b23a2f;
+}
+
+/* 表头：全大写小号宽字距 */
+:is(body.theme-light, body.theme-dark) .markdown-rendered thead th {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72em;
+}
+
+/* 分隔线：居中 34% 短线 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view hr {
+  border: 0;
+  border-top: 1px solid #ded7cf;
+  width: 34%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 标签：透明红字红框（报眼徽章风） */
+:is(body.theme-light, body.theme-dark) .tag {
+  background: transparent;
+  color: #b23a2f;
+  border: 1px solid #b23a2f;
+  border-radius: 0;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Callout：暖白卡片 + 细边 */
+:is(body.theme-light, body.theme-dark) .callout {
+  background: #ffffff;
+  border: 1px solid #ded7cf;
+}
+
+/* ---------- 界面 chrome ---------- */
+:is(body.theme-light, body.theme-dark) .status-bar {
+  background: #f6f2ec;
+  border-top: 1px solid #ded7cf;
+  color: #6f675f;
+}
+
+:is(body.theme-light, body.theme-dark) .nav-file-title.is-active {
+  border-left: 2px solid #b23a2f;
+}
+
+:is(body.theme-light, body.theme-dark) .search-input-container input,
+:is(body.theme-light, body.theme-dark) input.prompt-input {
+  background: #ffffff;
+  border: 1px solid #ded7cf;
+}
+
+:is(body.theme-light, body.theme-dark) .search-input-container input:focus,
+:is(body.theme-light, body.theme-dark) input.prompt-input:focus {
+  border-color: #b23a2f;
+}
+
+:is(body.theme-light, body.theme-dark) .prompt {
+  background: #ffffff;
+  border: 1px solid #ded7cf;
+  box-shadow: 0 1px 1px rgba(28, 26, 24, 0.05), 0 18px 40px -28px rgba(28, 26, 24, 0.4);
+}
+
+:is(body.theme-light, body.theme-dark) .suggestion-item.is-selected {
+  background: #f3efea;
+}
+
+/* ---------- 语法高亮（暖纸 + 牛血红点缀） ---------- */
+body.theme-light {
+  --code-comment: #a09789;
+  --code-keyword: #b23a2f;
+  --code-string: #5a6e3f;
+  --code-function: #3f5a78;
+  --code-value: #8a6d1f;
+  --code-property: #6b5b3e;
+  --code-tag: #b23a2f;
+  --code-operator: #6f675f;
+  --code-punctuation: #6f675f;
+}
+
+/* ---------- 对侧模式调色板（body.theme-dark）：随基础模式无缝切换 ---------- */
+body.theme-dark {  --table-row-background-hover: #2a2219;
+  --table-row-alt-background: transparent;
+  --table-column-alt-background: #1e1913;
+  --table-header-color: #f4ecdd;
+  --table-background: transparent;
+
+  --code-comment: #6f6353;
+  --code-keyword: #e38a63;
+  --code-string: #a8b87a;
+  --code-function: #8fb0c9;
+  --code-value: #c9a95e;
+  --code-property: #a39681;
+  --code-tag: #e38a63;
+  --code-operator: #a39681;
+  --code-punctuation: #6f6353;
+  --background-primary: #17130f;
+  --background-primary-alt: #1e1913;
+  --background-secondary: #1a1611;
+  --background-secondary-alt: #221c15;
+  --background-modifier-border: #33291f;
+  --background-modifier-border-hover: #453828;
+  --background-modifier-border-focus: #d65a4b;
+  --background-modifier-hover: rgba(214, 90, 75, 0.07);
+  --background-modifier-active-hover: #241d16;
+  --background-modifier-form-field: #1e1913;
+  --background-modifier-box-shadow: rgba(28, 26, 24, 0.4);
+  --background-modifier-success: rgba(90, 130, 80, 0.12);
+  --background-modifier-error: rgba(178, 58, 47, 0.12);
+  --text-on-accent: #ffffff;
+  --accent-h: 7;
+  --accent-s: 51%;
+  --accent-l: 47%;
+  --text-accent: #d65a4b;
+  --text-accent-hover: #e36f61;
+  --interactive-normal: #1e1913;
+  --interactive-hover: #272017;
+  --interactive-accent: #d65a4b;
+  --interactive-accent-hover: #e36f61;
+  --text-normal: #ece2d2;
+  --text-muted: #a39681;
+  --text-faint: #6f6353;
+  --text-selection: rgba(214, 90, 75, 0.25);
+  --text-highlight-bg: rgba(214, 90, 75, 0.20);
+  --text-error: #b23a2f;
+  --link-color: #e36f61;
+  --link-color-hover: #ef8275;
+  --link-external-color: #e36f61;
+  --link-external-color-hover: #ef8275;
+  --link-unresolved-color: rgba(178, 58, 47, 0.55);
+  --tag-color: #e36f61;
+  --tag-background: transparent;
+  --tag-background-hover: rgba(214, 90, 75, 0.12);
+  --tag-border-color: #d65a4b;
+  --titlebar-background: #1a1611;
+  --titlebar-background-focused: #17130f;
+  --titlebar-text-color: #6f6353;
+  --titlebar-text-color-focused: #ece2d2;
+  --tab-outline-color: #ded7cf;
+  --tab-text-color: #6f675f;
+  --tab-text-color-focused: #1c1a18;
+  --tab-text-color-focused-active: #e36f61;
+  --radius-s: 2px;
+  --radius-m: 2px;
+  --radius-l: 3px;
+  --radius-xl: 4px;
+  --input-radius: 2px;
+  --button-radius: 2px;
+  --tab-radius: 2px;
+  --checkbox-radius: 2px;
+  --code-background: #1e1913;
+  --code-normal: #d8cbb0;
+  --blockquote-border-color: #ded7cf;
+  --table-header-background: #241d16;
+  --h1-color: #f4ecdd;
+  --h2-color: #f4ecdd;
+  --h3-color: #ece2d2;
+  --h4-color: #a39681;
+  --h5-color: #6f675f;
+  --h6-color: #6f675f;
+  --inline-title-color: #f4ecdd;
+  --nav-item-background-active: #241d16;
+  --nav-item-color-active: #ece2d2;
+  --font-interface-theme: "Segoe UI", -apple-system, "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-text-theme: Georgia, "Iowan Old Style", "Times New Roman", "Songti SC", "Noto Serif CJK SC", SimSun, serif;
+  --font-monospace-theme: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  --mg-accent: #d65a4b;
+  --mg-border: #33291f;
+  --mg-panel: #1e1913;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-dark .inline-title { border-bottom: 4px double var(--mg-border); }
+body.theme-dark .markdown-preview-view h2::before { background: var(--mg-accent); }
+body.theme-dark .markdown-preview-view p:first-of-type::first-letter { color: var(--mg-accent); }
+body.theme-dark .markdown-preview-view blockquote {
+  border-top: 1px solid var(--mg-border); border-bottom: 1px solid var(--mg-border); color: #ece2d2;
+}
+body.theme-dark .markdown-preview-view blockquote::before { color: var(--mg-accent); }
+body.theme-dark .markdown-preview-view pre, body.theme-dark .markdown-source-view .HyperMD-codeblock { border-left: 3px solid var(--mg-accent); }
+body.theme-dark .markdown-preview-view hr { border-top: 1px solid var(--mg-border); }
+body.theme-dark .callout { background: var(--mg-panel); border: 1px solid var(--mg-border); }
+body.theme-dark .tag { border: 1px solid var(--mg-accent); }
+body.theme-dark .nav-file-title.is-active { border-left: 2px solid var(--mg-accent); }
+body.theme-dark .status-bar { background: #1a1611; border-top: 1px solid var(--mg-border); color: #a39681; }
+body.theme-dark .search-input-container input, body.theme-dark input.prompt-input {
+  background: var(--mg-panel); border: 1px solid var(--mg-border); color: #ece2d2;
+}
+body.theme-dark .search-input-container input:focus, body.theme-dark input.prompt-input:focus { border-color: var(--mg-accent); }
+body.theme-dark .prompt { background: var(--mg-panel); border: 1px solid var(--mg-border); }
+body.theme-dark .suggestion-item.is-selected { background: #241d16; }
+

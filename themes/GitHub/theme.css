@@ -1,0 +1,388 @@
+/* ==========================================================================
+   GitHub — Primer 文档风（light）
+   来源：承袭 Typeset 导出器（github.com/Fogecode/Typeset）的 GitHub 主题【只读提取】
+   （tokens 直翻 + 母题移植：README 式 h1/h2 底线、灰码块、胶囊徽章、Primer 语法色）
+   ---------------------------------------------------------------------------
+   忠实静态移植，无特效开关（无动画元素）。
+   明暗自适应：本主题在深/浅基础模式下都应用同一套配色，切主题即所见。
+   ========================================================================== */
+
+/* ---------- 变量映射层（tokens 直译） ---------- */
+body.theme-light {
+  --background-primary: #ffffff;
+  --background-primary-alt: #f6f8fa;
+  --background-secondary: #f6f8fa;
+  --background-secondary-alt: #eef1f4;
+  --background-modifier-border: #d0d7de;
+  --background-modifier-border-hover: #afb8c1;
+  --background-modifier-border-focus: #0969da;
+  --background-modifier-hover: rgba(9, 105, 218, 0.05);
+  --background-modifier-active-hover: #f6f8fa;
+  --background-modifier-form-field: #f6f8fa;
+  --background-modifier-box-shadow: rgba(31, 35, 40, 0.12);
+  --background-modifier-success: rgba(26, 127, 55, 0.12);
+  --background-modifier-error: rgba(207, 34, 46, 0.12);
+  --text-on-accent: #ffffff;
+  --accent-h: 212;
+  --accent-s: 92%;
+  --accent-l: 45%;
+  --text-accent: #0969da;
+  --text-accent-hover: #218bff;
+
+  --interactive-normal: #f6f8fa;
+  --interactive-hover: #eef1f4;
+  --interactive-accent: #0969da;
+  --interactive-accent-hover: #218bff;
+
+  --text-normal: #1f2328;
+  --text-muted: #59636e;
+  --text-faint: #8c959f;
+  --text-selection: #b6e3ff;
+  --text-highlight-bg: rgba(255, 223, 105, 0.4);
+  --text-error: #cf222e;
+
+  --link-color: #0969da;
+  --link-color-hover: #218bff;
+  --link-external-color: #0969da;
+  --link-external-color-hover: #218bff;
+  --link-unresolved-color: #8c959f;
+
+  --tag-color: #0969da;
+  --tag-background: rgba(9, 105, 218, 0.08);
+  --tag-background-hover: rgba(9, 105, 218, 0.16);
+  --tag-border-color: rgba(9, 105, 218, 0.35);
+
+  --titlebar-background: #f6f8fa;
+  --titlebar-background-focused: #ffffff;
+  --titlebar-text-color: #59636e;
+  --titlebar-text-color-focused: #1f2328;
+
+  --tab-outline-color: #d0d7de;
+  --tab-text-color: #59636e;
+  --tab-text-color-focused: #1f2328;
+  --tab-text-color-focused-active: #1f2328;
+
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-l: 6px;
+  --radius-xl: 8px;
+  --input-radius: 6px;
+  --button-radius: 6px;
+  --tab-radius: 6px;
+  --checkbox-radius: 4px;
+
+  --code-background: #f6f8fa;
+  --code-normal: #1f2328;
+  --blockquote-border-color: #d0d7de;
+  --table-header-background: #f6f8fa;
+
+  --h1-color: #1f2328;
+  --h2-color: #1f2328;
+  --h3-color: #1f2328;
+  --h4-color: #1f2328;
+  --h5-color: #1f2328;
+  --h6-color: #59636e;
+  --inline-title-color: #1f2328;
+
+  --nav-item-background-active: #eef1f4;
+  --nav-item-color-active: #1f2328;
+
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-monospace-theme: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* ---------- 母题层 ---------- */
+
+/* 标题 600 微收字距（Primer） */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h1,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h2,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h3,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h4,
+:is(body.theme-light, body.theme-dark) .cm-header-1,
+:is(body.theme-light, body.theme-dark) .cm-header-2,
+:is(body.theme-light, body.theme-dark) .cm-header-3,
+:is(body.theme-light, body.theme-dark) .cm-header-4 {
+  font-weight: 600;
+  letter-spacing: -0.008em;
+}
+
+/* inline-title 与 h1：README 式发丝底线 */
+:is(body.theme-light, body.theme-dark) .inline-title,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h1 {
+  border-bottom: 1px solid #d0d7de;
+  padding-bottom: 0.3em;
+}
+
+:is(body.theme-light, body.theme-dark) .inline-title {
+  font-size: clamp(1.8rem, 1.5rem + 1.3vw, 2.4rem);
+  line-height: 1.25;
+  letter-spacing: -0.014em;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h2 {
+  border-bottom: 1px solid #d0d7de;
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h3 {
+  font-size: 1.25em;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h4 {
+  font-size: 1em;
+}
+
+/* 链接：无下划线，hover 下划线 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view a,
+:is(body.theme-light, body.theme-dark) .cm-link,
+:is(body.theme-light, body.theme-dark) .cm-hmd-internal-link {
+  text-decoration: none;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-preview-view a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+/* 引用：0.25em 灰左缘、muted 正体 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view blockquote,
+:is(body.theme-light, body.theme-dark) .markdown-source-view .HyperMD-quote {
+  border-left: 0.25em solid #d0d7de;
+  color: #59636e;
+  padding: 0 1em;
+  font-style: normal;
+}
+
+/* 代码块：灰底细边 6px 圆角 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view pre,
+:is(body.theme-light, body.theme-dark) .markdown-source-view .HyperMD-codeblock {
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 1em 1.1em;
+}
+
+/* 行内代码：淡灰胶囊 85% */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view :not(pre) > code,
+:is(body.theme-light, body.theme-dark) .cm-inline-code {
+  background: rgba(129, 139, 152, 0.12);
+  border: 0;
+  border-radius: 6px;
+  padding: 0.16em 0.36em;
+  font-size: 85%;
+  color: #1f2328;
+}
+
+/* 表格：灰表头、隔行灰、行 hover */
+:is(body.theme-light, body.theme-dark) .markdown-rendered thead th {
+  background: #f6f8fa;
+  border-bottom: 1px solid #d0d7de;
+  font-weight: 600;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-rendered tbody tr:nth-child(even) {
+  background: #f6f8fa;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-rendered tbody tr:hover {
+  background: #eef2f6;
+}
+
+/* 分隔线：1px 灰 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view hr {
+  border: 0;
+  height: 1px;
+  background: #d0d7de;
+}
+
+/* Callout：灰底 4px 彩色左缘 */
+:is(body.theme-light, body.theme-dark) .callout {
+  border-radius: 6px;
+  border-left-width: 4px;
+  background: #f6f8fa;
+}
+
+:is(body.theme-light, body.theme-dark) .callout-title {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.92em;
+  font-weight: 600;
+}
+
+/* 标签：胶囊徽章（999px） */
+:is(body.theme-light, body.theme-dark) .tag {
+  border: 1px solid rgba(9, 105, 218, 0.35);
+  border-radius: 999px;
+  background: #f6f8fa;
+  color: #59636e;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* 任务框 */
+:is(body.theme-light, body.theme-dark) input[type="checkbox"] {
+  accent-color: #0969da;
+}
+
+/* ---------- 界面 chrome ---------- */
+:is(body.theme-light, body.theme-dark) .status-bar {
+  background: #f6f8fa;
+  border-top: 1px solid #d0d7de;
+  color: #59636e;
+}
+
+:is(body.theme-light, body.theme-dark) .nav-file-title.is-active {
+  border-left: 2px solid #0969da;
+}
+
+:is(body.theme-light, body.theme-dark) .search-input-container input,
+:is(body.theme-light, body.theme-dark) input.prompt-input {
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+}
+
+:is(body.theme-light, body.theme-dark) .search-input-container input:focus,
+:is(body.theme-light, body.theme-dark) input.prompt-input:focus {
+  border-color: #0969da;
+}
+
+:is(body.theme-light, body.theme-dark) .prompt {
+  background: #ffffff;
+  border: 1px solid #d0d7de;
+  box-shadow: 0 3px 12px rgba(31, 35, 40, 0.12);
+}
+
+:is(body.theme-light, body.theme-dark) .suggestion-item.is-selected {
+  background: #f6f8fa;
+}
+
+/* ---------- 语法高亮（GitHub Light / Primer） ---------- */
+body.theme-light {
+  --code-comment: #59636e;
+  --code-keyword: #cf222e;
+  --code-string: #0a3069;
+  --code-function: #8250df;
+  --code-value: #0550ae;
+  --code-property: #953800;
+  --code-tag: #116329;
+  --code-operator: #0550ae;
+  --code-punctuation: #0550ae;
+}
+
+/* ---------- 对侧模式调色板（body.theme-dark）：随基础模式无缝切换 ---------- */
+body.theme-dark {  --table-row-background-hover: #1c2128;
+  --table-column-alt-background: #0d1117;
+  --table-header-color: #e6edf3;
+
+  --code-comment: #8b949e;
+  --code-keyword: #ff7b72;
+  --code-string: #a5d6ff;
+  --code-function: #d2a8ff;
+  --code-value: #79c0ff;
+  --code-property: #7ee787;
+  --code-tag: #7ee787;
+  --code-operator: #79c0ff;
+  --code-punctuation: #8b949e;
+  --background-primary: #0d1117;
+  --background-primary-alt: #161b22;
+  --background-secondary: #010409;
+  --background-secondary-alt: #0d1117;
+  --background-modifier-border: #30363d;
+  --background-modifier-border-hover: #8b949e;
+  --background-modifier-border-focus: #4493f8;
+  --background-modifier-hover: rgba(68, 147, 248, 0.08);
+  --background-modifier-active-hover: #161b22;
+  --background-modifier-form-field: #0d1117;
+  --background-modifier-box-shadow: rgba(31, 35, 40, 0.12);
+  --background-modifier-success: rgba(26, 127, 55, 0.12);
+  --background-modifier-error: rgba(207, 34, 46, 0.12);
+  --text-on-accent: #ffffff;
+  --accent-h: 212;
+  --accent-s: 89%;
+  --accent-l: 52%;
+  --text-accent: #4493f8;
+  --text-accent-hover: #5cabff;
+  --interactive-normal: #21262d;
+  --interactive-hover: #292f36;
+  --interactive-accent: #4493f8;
+  --interactive-accent-hover: #5cabff;
+  --text-normal: #e6edf3;
+  --text-muted: #8b949e;
+  --text-faint: #6e7681;
+  --text-selection: rgba(56, 139, 253, 0.30);
+  --text-highlight-bg: rgba(187, 128, 9, 0.40);
+  --text-error: #cf222e;
+  --link-color: #4493f8;
+  --link-color-hover: #5cabff;
+  --link-external-color: #4493f8;
+  --link-external-color-hover: #5cabff;
+  --link-unresolved-color: #8c959f;
+  --tag-color: #0969da;
+  --tag-background: rgba(9, 105, 218, 0.08);
+  --tag-background-hover: rgba(9, 105, 218, 0.16);
+  --tag-border-color: rgba(9, 105, 218, 0.35);
+  --titlebar-background: #010409;
+  --titlebar-background-focused: #0d1117;
+  --titlebar-text-color: #6e7681;
+  --titlebar-text-color-focused: #e6edf3;
+  --tab-outline-color: #d0d7de;
+  --tab-text-color: #59636e;
+  --tab-text-color-focused: #1f2328;
+  --tab-text-color-focused-active: #e6edf3;
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-l: 6px;
+  --radius-xl: 8px;
+  --input-radius: 6px;
+  --button-radius: 6px;
+  --tab-radius: 6px;
+  --checkbox-radius: 4px;
+  --code-background: #161b22;
+  --code-normal: #e6edf3;
+  --blockquote-border-color: #d0d7de;
+  --table-header-background: #161b22;
+  --h1-color: #e6edf3;
+  --h2-color: #e6edf3;
+  --h3-color: #e6edf3;
+  --h4-color: #e6edf3;
+  --h5-color: #e6edf3;
+  --h6-color: #8b949e;
+  --inline-title-color: #e6edf3;
+  --nav-item-background-active: #161b22;
+  --nav-item-color-active: #e6edf3;
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-monospace-theme: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --gh-border: #30363d;
+  --gh-surface: #161b22;
+  --gh-hover: #1c2128;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-dark .inline-title, body.theme-dark .markdown-preview-view h1 { border-bottom: 1px solid var(--gh-border); }
+body.theme-dark .markdown-preview-view h2 { border-bottom: 1px solid var(--gh-border); }
+body.theme-dark .markdown-preview-view pre, body.theme-dark .markdown-source-view .HyperMD-codeblock {
+  background: var(--gh-surface); border: 1px solid var(--gh-border);
+}
+body.theme-dark .markdown-preview-view :not(pre) > code, body.theme-dark .cm-inline-code {
+  background: rgba(110, 118, 129, 0.25); color: #e6edf3;
+}
+body.theme-dark .markdown-rendered thead th { background: var(--gh-surface); border-bottom: 1px solid var(--gh-border); }
+body.theme-dark .markdown-rendered tbody tr:nth-child(even) { background: var(--gh-surface); }
+body.theme-dark .markdown-rendered tbody tr:hover { background: var(--gh-hover); }
+body.theme-dark .markdown-preview-view hr { background: var(--gh-border); }
+body.theme-dark .markdown-preview-view blockquote, body.theme-dark .markdown-source-view .HyperMD-quote {
+  border-left: 0.25em solid var(--gh-border); color: #8b949e;
+}
+body.theme-dark .callout { background: var(--gh-surface); border-left-width: 4px; }
+body.theme-dark .nav-file-title.is-active { border-left: 2px solid #4493f8; }
+body.theme-dark .status-bar { background: #010409; border-top: 1px solid var(--gh-border); color: #8b949e; }
+body.theme-dark .search-input-container input, body.theme-dark input.prompt-input {
+  background: #0d1117; border: 1px solid var(--gh-border); color: #e6edf3;
+}
+body.theme-dark .search-input-container input:focus, body.theme-dark input.prompt-input:focus { border-color: #4493f8; }
+body.theme-dark .prompt { background: #0d1117; border: 1px solid var(--gh-border); }
+body.theme-dark .suggestion-item.is-selected { background: var(--gh-surface); }
+

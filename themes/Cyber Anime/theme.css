@@ -1,0 +1,368 @@
+/* ==========================================================================
+   Cyber Anime — 赛博动漫风（HUD 机甲座舱）
+   来源：luckymaomi 风格库 /ui/styles/cyber-anime/（深紫 + 青/粉多层霓虹 + HUD 角框 + 六边形网格）
+   ---------------------------------------------------------------------------
+   特效档位（改下面变量值即可切换）：
+     · 静态档 : 所有 --fx-* 设为 none
+     · 轻特效 : 默认值（HUD 角框、多层发光、六边形网格均为静态呈现，无动画）
+     · 全特效 : 在默认值上再放开 --fx-scanlines（面板竖向扫描线）
+   规则出处：全直角、禁衬线、多层霓虹（2~3 层）、交互 160~280ms、禁弹跳动画。
+   ========================================================================== */
+
+/* ---------- 特效开关 ---------- */
+body.theme-dark {
+  --fx-hud-border: rgba(6, 214, 160, 0.6);   /* HUD 角框色；静态档改 none 隐藏角框 */
+  --fx-hex-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='52'%3E%3Cpath d='M22.5 0 L45 13 L45 39 L22.5 52 L0 39 L0 13 Z' fill='none' stroke='%237c3aed' stroke-width='0.4' opacity='0.10'/%3E%3C/svg%3E"); /* 静态档改 none */
+  --fx-panel-glow: 0 0 14px rgba(124, 58, 237, 0.3), 0 0 28px rgba(124, 58, 237, 0.14); /* 双层霓虹；静态档改 none */
+  --fx-title-glow: 0 0 18px rgba(124, 58, 237, 0.4), 0 0 42px rgba(124, 58, 237, 0.15);
+  --fx-scanlines: none;
+  /* --fx-scanlines: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(56, 189, 248, 0.04) 2px, rgba(56, 189, 248, 0.04) 3px); */
+}
+
+/* ---------- 变量映射层 ---------- */
+body.theme-dark {
+  --background-primary: #0f0f1a;
+  --background-primary-alt: #151527;
+  --background-secondary: #0b0b13;
+  --background-secondary-alt: #131320;
+  --background-modifier-border: rgba(124, 58, 237, 0.28);
+  --background-modifier-border-hover: rgba(6, 214, 160, 0.5);
+  --background-modifier-border-focus: rgba(6, 214, 160, 0.7);
+  --background-modifier-hover: rgba(124, 58, 237, 0.08);
+  --background-modifier-active-hover: rgba(124, 58, 237, 0.14);
+  --background-modifier-form-field: #0b0b13;
+  --background-modifier-box-shadow: rgba(124, 58, 237, 0.4);
+  --background-modifier-success: rgba(6, 214, 160, 0.15);
+  --background-modifier-error: rgba(255, 0, 110, 0.15);
+  --text-on-accent: #ffffff;
+  --accent-h: 262;
+  --accent-s: 83%;
+  --accent-l: 58%;
+  --text-accent: #a78bfa;
+  --text-accent-hover: #c4b0fa;
+
+  --interactive-normal: #151527;
+  --interactive-hover: #1c1c33;
+  --interactive-accent: #7c3aed;
+  --interactive-accent-hover: #9161f2;
+
+  --text-normal: #e0e0ff;
+  --text-muted: #9c9cc4;
+  --text-faint: #63638c;
+  --text-selection: rgba(124, 58, 237, 0.32);
+  --text-highlight-bg: rgba(6, 214, 160, 0.22);
+  --text-error: #ff4d8f;
+
+  --link-color: #38bdf8;
+  --link-color-hover: #7dd3fc;
+  --link-external-color: #38bdf8;
+  --link-external-color-hover: #7dd3fc;
+  --link-unresolved-color: rgba(255, 0, 110, 0.8);
+
+  --tag-color: #06d6a0;
+  --tag-background: rgba(6, 214, 160, 0.08);
+  --tag-background-hover: rgba(6, 214, 160, 0.16);
+  --tag-border-color: rgba(6, 214, 160, 0.45);
+
+  --titlebar-background: #0b0b13;
+  --titlebar-background-focused: #0f0f1a;
+  --titlebar-text-color: #63638c;
+  --titlebar-text-color-focused: #06d6a0;
+
+  --tab-outline-color: rgba(124, 58, 237, 0.28);
+  --tab-text-color: #9c9cc4;
+  --tab-text-color-focused: #e0e0ff;
+  --tab-text-color-focused-active: #06d6a0;
+
+  /* 全直角：机甲装甲板语言 */
+  --radius-s: 0px;
+  --radius-m: 0px;
+  --radius-l: 0px;
+  --radius-xl: 0px;
+  --input-radius: 0px;
+  --button-radius: 0px;
+  --tab-radius: 0px;
+  --checkbox-radius: 0px;
+
+  --code-background: #0b0b13;
+  --code-normal: #c9d4ff;
+  --blockquote-border-color: rgba(6, 214, 160, 0.5);
+  --table-header-background: #131320;
+
+  --h1-color: #e0e0ff;
+  --h2-color: #b4a6ff;
+  --h3-color: #06d6a0;
+  --h4-color: #38bdf8;
+  --h5-color: #9c9cc4;
+  --h6-color: #9c9cc4;
+  --inline-title-color: #e0e0ff;
+
+  --font-interface-theme: "Segoe UI", -apple-system, "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-text-theme: "Segoe UI", -apple-system, "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-monospace-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", monospace;
+}
+
+/* ---------- 排版：几何无衬线 + 数据读出 ---------- */
+:is(body.theme-dark, body.theme-light) .inline-title,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h1,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2 {
+  letter-spacing: 0.08em;
+  text-shadow: var(--fx-title-glow);
+}
+
+:is(body.theme-dark, body.theme-light) .inline-title {
+  text-transform: none;
+}
+
+/* ---------- HUD 角框层（bracket 式四角装饰） ---------- */
+
+/* 活动窗格的视图头：左上/右下角框 */
+:is(body.theme-dark, body.theme-light) .workspace-leaf.mod-active .view-header {
+  position: relative;
+}
+
+:is(body.theme-dark, body.theme-light) .workspace-leaf.mod-active .view-header::before,
+:is(body.theme-dark, body.theme-light) .workspace-leaf.mod-active .view-header::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+}
+
+:is(body.theme-dark, body.theme-light) .workspace-leaf.mod-active .view-header::before {
+  top: 0;
+  left: 0;
+  border-top: 2px solid var(--fx-hud-border);
+  border-left: 2px solid var(--fx-hud-border);
+}
+
+:is(body.theme-dark, body.theme-light) .workspace-leaf.mod-active .view-header::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid var(--fx-hud-border);
+  border-right: 2px solid var(--fx-hud-border);
+}
+
+/* Callout：HUD 数据面板（角框 + 竖向扫描线全特效档） */
+:is(body.theme-dark, body.theme-light) .callout {
+  position: relative;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  background-image: var(--fx-scanlines);
+}
+
+:is(body.theme-dark, body.theme-light) .callout::before,
+:is(body.theme-dark, body.theme-light) .callout::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+}
+
+:is(body.theme-dark, body.theme-light) .callout::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--fx-hud-border);
+  border-left: 2px solid var(--fx-hud-border);
+}
+
+:is(body.theme-dark, body.theme-light) .callout::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--fx-hud-border);
+  border-right: 2px solid var(--fx-hud-border);
+}
+
+:is(body.theme-dark, body.theme-light) .callout-title {
+  font-family: var(--font-monospace-theme);
+  letter-spacing: 0.06em;
+}
+
+/* 活动标签页：多层霓虹 + 青绿描边 */
+:is(body.theme-dark, body.theme-light) .workspace-tab-header.is-active {
+  box-shadow: var(--fx-panel-glow);
+  border-bottom: 2px solid #06d6a0;
+}
+
+/* 文件树活动项：青绿数据流指示 */
+:is(body.theme-dark, body.theme-light) .nav-file-title.is-active {
+  border-left: 2px solid #06d6a0;
+  background: rgba(124, 58, 237, 0.12);
+}
+
+/* ---------- 六边形网格背景（能量场） ---------- */
+:is(body.theme-dark, body.theme-light) .markdown-source-view .cm-scroller,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view {
+  background-image: var(--fx-hex-grid);
+}
+
+/* ---------- 界面 chrome ---------- */
+:is(body.theme-dark, body.theme-light) .status-bar {
+  border-top: 1px solid rgba(6, 214, 160, 0.35);
+  font-family: var(--font-monospace-theme);
+  color: #63638c;
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input,
+:is(body.theme-dark, body.theme-light) input.prompt-input {
+  background: #0b0b13;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input:focus,
+:is(body.theme-dark, body.theme-light) input.prompt-input:focus {
+  border-color: #06d6a0;
+  box-shadow: 0 0 12px rgba(6, 214, 160, 0.3);
+}
+
+:is(body.theme-dark, body.theme-light) .prompt {
+  background: rgba(11, 11, 19, 0.96);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  box-shadow: var(--fx-panel-glow), 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+:is(body.theme-dark, body.theme-light) .suggestion-item.is-selected {
+  background: rgba(124, 58, 237, 0.14);
+}
+
+:is(body.theme-dark, body.theme-light) .cm-cursor {
+  border-left-color: #06d6a0;
+}
+
+/* 座舱节奏：160~280ms，快速精准 */
+:is(body.theme-dark, body.theme-light) .workspace-tab-header,
+:is(body.theme-dark, body.theme-light) .nav-file-title,
+:is(body.theme-dark, body.theme-light) .nav-folder-title,
+:is(body.theme-dark, body.theme-light) button,
+:is(body.theme-dark, body.theme-light) .clickable-icon,
+:is(body.theme-dark, body.theme-light) .callout {
+  transition: box-shadow 0.22s ease-out, background-color 0.22s ease-out, border-color 0.22s ease-out, color 0.22s ease-out;
+}
+
+/* 元数据面板：终端读出风 */
+:is(body.theme-dark, body.theme-light) .metadata-property-key {
+  font-family: var(--font-monospace-theme);
+  color: #06d6a0;
+}
+
+/* ---------- 语法高亮（紫/青绿/粉三色系） ---------- */
+body.theme-dark {
+  --code-comment: #63638c;
+  --code-keyword: #a78bfa;
+  --code-string: #06d6a0;
+  --code-function: #38bdf8;
+  --code-value: #f472b6;
+  --code-property: #34d399;
+  --code-tag: #ff006e;
+  --code-operator: #9c9cc4;
+  --code-punctuation: #9c9cc4;
+}
+
+/* ---------- 对侧模式调色板（body.theme-light）：随基础模式无缝切换 ---------- */
+body.theme-light {  --table-row-background-hover: rgba(109, 40, 217, 0.08);
+  --table-row-alt-background: transparent;
+  --table-column-alt-background: #f7f5fe;
+  --table-header-color: #241a3d;
+  --table-background: transparent;
+
+  --code-comment: #8a81a8;
+  --code-keyword: #6d28d9;
+  --code-string: #0d6e58;
+  --code-function: #1d5fd0;
+  --code-value: #b0246e;
+  --code-property: #0d6e58;
+  --code-tag: #c01558;
+  --code-operator: #5f5580;
+  --code-punctuation: #8a81a8;
+  --background-primary: #f7f5fe;
+  --background-primary-alt: #efecfb;
+  --background-secondary: #efeafd;
+  --background-secondary-alt: #e8e4f8;
+  --background-modifier-border: rgba(76, 29, 149, 0.22);
+  --background-modifier-border-hover: rgba(13, 110, 88, 0.45);
+  --background-modifier-border-focus: rgba(13, 110, 88, 0.65);
+  --background-modifier-hover: rgba(109, 40, 217, 0.07);
+  --background-modifier-active-hover: rgba(109, 40, 217, 0.12);
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-box-shadow: rgba(124, 58, 237, 0.4);
+  --background-modifier-success: rgba(6, 214, 160, 0.15);
+  --background-modifier-error: rgba(255, 0, 110, 0.15);
+  --text-on-accent: #ffffff;
+  --accent-h: 262;
+  --accent-s: 47%;
+  --accent-l: 50%;
+  --text-accent: #6d28d9;
+  --text-accent-hover: #5b21b6;
+  --interactive-normal: #efecfb;
+  --interactive-hover: #e4dff6;
+  --interactive-accent: #6d28d9;
+  --interactive-accent-hover: #5b21b6;
+  --text-normal: #241a3d;
+  --text-muted: #5f5580;
+  --text-faint: #8a81a8;
+  --text-selection: rgba(109, 40, 217, 0.18);
+  --text-highlight-bg: rgba(6, 160, 120, 0.16);
+  --text-error: #ff4d8f;
+  --link-color: #1d5fd0;
+  --link-color-hover: #164ea8;
+  --link-external-color: #1d5fd0;
+  --link-external-color-hover: #164ea8;
+  --link-unresolved-color: rgba(255, 0, 110, 0.8);
+  --tag-color: #0d6e58;
+  --tag-background: rgba(13, 110, 88, 0.08);
+  --tag-background-hover: rgba(13, 110, 88, 0.16);
+  --tag-border-color: rgba(13, 110, 88, 0.45);
+  --titlebar-background: #efeafd;
+  --titlebar-background-focused: #f7f5fe;
+  --titlebar-text-color: #5f5580;
+  --titlebar-text-color-focused: #241a3d;
+  --tab-outline-color: rgba(124, 58, 237, 0.28);
+  --tab-text-color: #9c9cc4;
+  --tab-text-color-focused: #e0e0ff;
+  --tab-text-color-focused-active: #0d6e58;
+  --radius-s: 0px;
+  --radius-m: 0px;
+  --radius-l: 0px;
+  --radius-xl: 0px;
+  --input-radius: 0px;
+  --button-radius: 0px;
+  --tab-radius: 0px;
+  --checkbox-radius: 0px;
+  --code-background: #efecfb;
+  --code-normal: #2c2440;
+  --blockquote-border-color: rgba(6, 214, 160, 0.5);
+  --table-header-background: #e8e4f8;
+  --h1-color: #241a3d;
+  --h2-color: #2c1f52;
+  --h3-color: #0d6e58;
+  --h4-color: #1d5fd0;
+  --h5-color: #5f5580;
+  --h6-color: #5f5580;
+  --inline-title-color: #241a3d;
+  --font-interface-theme: "Segoe UI", -apple-system, "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-text-theme: "Segoe UI", -apple-system, "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-monospace-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", monospace;
+  --fx-hud-border: rgba(13, 110, 88, 0.55);
+  --fx-hex-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='45' height='52'%3E%3Cpath d='M22.5 0 L45 13 L45 39 L22.5 52 L0 39 L0 13 Z' fill='none' stroke='%237c3aed' stroke-width='0.4' opacity='0.10'/%3E%3C/svg%3E");
+  --fx-panel-glow: 0 0 14px rgba(109, 40, 217, 0.22), 0 0 28px rgba(109, 40, 217, 0.10);
+  --fx-title-glow: 0 0 16px rgba(109, 40, 217, 0.22);
+  --fx-scanlines: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(29, 95, 208, 0.05) 2px, rgba(29, 95, 208, 0.05) 3px);
+  --ca-cyan: #0d6e58;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-light .workspace-tab-header.is-active { box-shadow: var(--fx-panel-glow); border-bottom: 2px solid var(--ca-cyan); }
+body.theme-light .nav-file-title.is-active { border-left: 2px solid var(--ca-cyan); background: rgba(109, 40, 217, 0.10); }
+body.theme-light .status-bar { border-top: 1px solid rgba(13, 110, 88, 0.40); color: #5f5580; }
+body.theme-light .cm-cursor { border-left-color: var(--ca-cyan); }
+body.theme-light .search-input-container input, body.theme-light input.prompt-input {
+  background: #ffffff; border: 1px solid rgba(76, 29, 149, 0.30); color: #241a3d;
+}
+body.theme-light .search-input-container input:focus, body.theme-light input.prompt-input:focus {
+  border-color: var(--ca-cyan); box-shadow: 0 0 12px rgba(13, 110, 88, 0.22);
+}
+body.theme-light .prompt { background: rgba(247, 245, 254, 0.97); border: 1px solid rgba(76, 29, 149, 0.35); }
+body.theme-light .suggestion-item.is-selected { background: rgba(109, 40, 217, 0.12); }
+body.theme-light .callout { border-color: rgba(109, 40, 217, 0.30); }
+

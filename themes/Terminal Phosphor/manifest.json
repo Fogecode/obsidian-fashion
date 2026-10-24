@@ -1,0 +1,7 @@
+{
+  "name": "Terminal Phosphor",
+  "version": "2.0.1",
+  "minAppVersion": "1.0.0",
+  "author": "Fogecode",
+  "description": "Ported from the Typeset exporter built-in Terminal theme"
+}

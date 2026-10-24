@@ -1,0 +1,522 @@
+/* ==========================================================================
+   Neo-Brutalist — 新粗野主义（light）
+   来源：承袭 Typeset 导出器（github.com/Fogecode/Typeset）的 Neo-brutalist 主题【只读提取】
+   （原 spec：4px 黑边框、10px 硬偏移阴影、#FFDD00 酸黄、零圆角、等宽、每个块元素都带边框和阴影）
+   ---------------------------------------------------------------------------
+   v1.1.1：编辑器代码块补齐整块黑框（CM6 begin/mid/end 逐行拼框）+ 语言标签酸黄徽章。
+   忠实静态移植，无特效开关（无动画元素；状态切换为硬替换，不设过渡）。
+   等宽是灵魂：对编辑区/阅读视图直接声明 mono 字体栈（霞鹜文楷兜底 CJK）。
+   明暗自适应：本主题在深/浅基础模式下都应用同一套配色，切主题即所见。
+   ========================================================================== */
+
+/* ---------- 变量映射层（tokens 直译） ---------- */
+body.theme-light {
+  --background-primary: #fffdf2;
+  --background-primary-alt: #ffffff;
+  --background-secondary: #fffdf2;
+  --background-secondary-alt: #fff8cf;
+  --background-modifier-border: #101010;
+  --background-modifier-border-hover: #101010;
+  --background-modifier-border-focus: #101010;
+  --background-modifier-hover: rgba(16, 16, 16, 0.05);
+  --background-modifier-active-hover: #fff8cf;
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-box-shadow: rgba(16, 16, 16, 0.9);
+  --background-modifier-success: #fff3b0;
+  --background-modifier-error: #ffb3b3;
+  --text-on-accent: #101010;
+  --accent-h: 51;
+  --accent-s: 100%;
+  --accent-l: 50%;
+  --text-accent: #101010;
+  --text-accent-hover: #101010;
+
+  /* 交互底一律酸黄（黑字），按钮类元素另在母题层配硬阴影 */
+  --interactive-normal: #ffffff;
+  --interactive-hover: #FFDD00;
+  --interactive-accent: #FFDD00;
+  --interactive-accent-hover: #101010;
+
+  --text-normal: #101010;
+  --text-muted: #4a4a4a;
+  --text-faint: #8a8a8a;
+  --text-selection: #FFDD00;
+  --text-highlight-bg: #fff3b0;
+  --text-error: #c40000;
+
+  --link-color: #101010;
+  --link-color-hover: #101010;
+  --link-external-color: #101010;
+  --link-external-color-hover: #101010;
+  --link-unresolved-color: #8a8a8a;
+
+  --tag-color: #101010;
+  --tag-background: #FFDD00;
+  --tag-background-hover: #101010;
+  --tag-border-color: #101010;
+
+  --titlebar-background: #fffdf2;
+  --titlebar-background-focused: #ffffff;
+  --titlebar-text-color: #4a4a4a;
+  --titlebar-text-color-focused: #101010;
+
+  --tab-outline-color: #101010;
+  --tab-text-color: #4a4a4a;
+  --tab-text-color-focused: #101010;
+  --tab-text-color-focused-active: #101010;
+
+  /* 零圆角 */
+  --radius-s: 0px;
+  --radius-m: 0px;
+  --radius-l: 0px;
+  --radius-xl: 0px;
+  --input-radius: 0px;
+  --button-radius: 0px;
+  --tab-radius: 0px;
+  --checkbox-radius: 0px;
+
+  --code-background: #fffdf2;
+  --code-normal: #101010;
+  --blockquote-border-color: #101010;
+  --table-header-background: #101010;
+  --table-header-color: #FFDD00;
+
+  --h1-color: #101010;
+  --h2-color: #101010;
+  --h3-color: #101010;
+  --h4-color: #101010;
+  --h5-color: #101010;
+  --h6-color: #4a4a4a;
+  --inline-title-color: #101010;
+
+  --nav-item-background-active: #FFDD00;
+  --nav-item-color-active: #101010;
+
+  --font-interface-theme: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-text-theme: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-monospace-theme: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", monospace;
+}
+
+/* ---------- 等宽直写（绕过外观设置的字体覆盖） ---------- */
+:is(body.theme-light, body.theme-dark) .markdown-source-view,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view,
+:is(body.theme-light, body.theme-dark) .inline-title {
+  font-family: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+}
+
+/* ---------- 母题层：每个块元素都带黑边框和硬阴影 ---------- */
+
+/* 背景网格（22px 竖线） */
+:is(body.theme-light, body.theme-dark) .app-container {
+  background: linear-gradient(to right, rgba(16, 16, 16, 0.05) 1px, transparent 1px) #fffdf2;
+  background-size: 22px 22px;
+}
+
+/* 标题：900 黑重 + 全大写 + 紧字距 */
+:is(body.theme-light, body.theme-dark) .inline-title,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h1,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h2,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h3,
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h4,
+:is(body.theme-light, body.theme-dark) .cm-header-1,
+:is(body.theme-light, body.theme-dark) .cm-header-2,
+:is(body.theme-light, body.theme-dark) .cm-header-3,
+:is(body.theme-light, body.theme-dark) .cm-header-4 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* h2：4px 黑底线 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view h2 {
+  border-bottom: 4px solid #101010;
+  padding-bottom: 0.24em;
+}
+
+/* 引用：黄底黑框 + 硬阴影 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view blockquote {
+  border: 4px solid #101010;
+  border-radius: 0;
+  box-shadow: 10px 10px 0 #101010;
+  background: #fff3b0;
+  padding: 1em 1.25em;
+  font-style: normal;
+  color: #101010;
+}
+
+/* 代码块（阅读视图）：黑头条报头 + 黑框 + 酸黄硬偏移阴影（参考图版式） */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view pre {
+  position: relative;
+  border: 4px solid #101010;
+  border-top: 10px solid #101010;
+  border-radius: 0;
+  box-shadow: 8px 8px 0 #FFDD00;
+  background: #fffdf2;
+}
+
+/* 黑头条上的红色徽章方块（参考图 ACTIVE 贴纸的抽象） */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view pre::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 10px;
+  width: 7px;
+  height: 7px;
+  background: #e30613;
+}
+
+/* 代码块（编辑器：实时预览/源码）：CodeMirror 逐行拼出整块黑框。
+   首行 .HyperMD-codeblock-begin 上边框、末行 -end 下边框、中间行左右边框，
+   单行代码块 begin/end 同线 → 自动成完整框；首行加黑头条报头 + 红徽章。 */
+:is(body.theme-light, body.theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
+  background: #fffdf2;
+  border-left: 4px solid #101010;
+  border-right: 4px solid #101010;
+  padding-left: 1em;
+  padding-right: 1em;
+  /* 每行右侧 8px 黄影逐行堆叠 → 连成整块右侧酸黄硬阴影带 */
+  box-shadow: 8px 0 0 #FFDD00;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+  position: relative;
+  border-top: 10px solid #101010;
+  padding-top: 0.55em;
+  margin-top: 0.75em;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 10px;
+  width: 7px;
+  height: 7px;
+  background: #e30613;
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
+  border-bottom: 4px solid #101010;
+  padding-bottom: 0.55em;
+  margin-bottom: 0.75em;
+  /* 末行阴影加纵向偏移 → 收出整块底部酸黄硬阴影带（右+底，与参考图一致） */
+  box-shadow: 8px 8px 0 #FFDD00;
+}
+
+/* 语言标签：酸黄黑框徽章（黑头条右上的"MENU"位） */
+:is(body.theme-light, body.theme-dark) .markdown-source-view .codeblock-flair {
+  background: #FFDD00;
+  color: #101010;
+  border: 2px solid #101010;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.05em 0.45em;
+  float: right;
+}
+
+/* 行内代码：黑框黄底 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view :not(pre) > code,
+:is(body.theme-light, body.theme-dark) .cm-inline-code {
+  border: 2px solid #101010;
+  background: #FFDD00;
+  color: #101010;
+  font-weight: 700;
+}
+
+/* 表格（阅读视图 + 实时预览渲染出的表格组件）：黑色头条表头（黄字）+ 黑框 + 酸黄硬阴影 */
+:is(body.theme-light, body.theme-dark) :is(.markdown-preview-view, .markdown-source-view) table {
+  border: 3px solid #101010;
+  box-shadow: 8px 8px 0 #FFDD00;
+}
+
+:is(body.theme-light, body.theme-dark) :is(.markdown-preview-view, .markdown-source-view) thead th {
+  background: #101010;
+  color: #FFDD00;
+  border-bottom: 3px solid #101010;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 900;
+}
+
+:is(body.theme-light, body.theme-dark) :is(.markdown-preview-view, .markdown-source-view) th,
+:is(body.theme-light, body.theme-dark) :is(.markdown-preview-view, .markdown-source-view) td {
+  border: 0;
+  border-bottom: 2px solid #101010;
+}
+
+/* 框内末行去掉双线 */
+:is(body.theme-light, body.theme-dark) :is(.markdown-preview-view, .markdown-source-view) tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+:is(body.theme-light, body.theme-dark) :is(.markdown-preview-view, .markdown-source-view) tbody tr:nth-child(even) {
+  background: #fff8cf;
+}
+
+:is(body.theme-light, body.theme-dark) :is(.markdown-preview-view, .markdown-source-view) tbody tr:hover {
+  background: #FFDD00;
+}
+
+/* Callout：黑框 + 硬阴影，标题为黄底黑字块 */
+:is(body.theme-light, body.theme-dark) .callout {
+  border: 4px solid #101010;
+  border-radius: 0;
+  box-shadow: 10px 10px 0 #101010;
+  background: #ffffff;
+}
+
+:is(body.theme-light, body.theme-dark) .callout-title {
+  display: inline-block;
+  padding: 0.1em 0.4em;
+  background: #FFDD00;
+  color: #101010;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+/* 链接：下半截黄色高亮（marker 笔触），hover 全黄 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view a,
+:is(body.theme-light, body.theme-dark) .cm-link,
+:is(body.theme-light, body.theme-dark) .cm-hmd-internal-link {
+  color: #101010;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: #101010;
+  background: linear-gradient(transparent 62%, #FFDD00 62%);
+}
+
+:is(body.theme-light, body.theme-dark) .markdown-preview-view a:hover {
+  background: #FFDD00;
+}
+
+/* 标签：黄底黑框硬阴影徽章 */
+:is(body.theme-light, body.theme-dark) .tag {
+  border: 3px solid #101010;
+  border-radius: 0;
+  background: #FFDD00;
+  color: #101010;
+  font-weight: 700;
+  box-shadow: 3px 3px 0 #101010;
+}
+
+/* 分隔线：4px 黑 */
+:is(body.theme-light, body.theme-dark) .markdown-preview-view hr {
+  border: 0;
+  border-top: 4px solid #101010;
+}
+
+/* 任务框：黑描边 */
+:is(body.theme-light, body.theme-dark) input[type="checkbox"] {
+  accent-color: #101010;
+}
+
+/* ---------- 界面 chrome：硬边框硬阴影 ---------- */
+:is(body.theme-light, body.theme-dark) .status-bar {
+  background: #ffffff;
+  border-top: 2px solid #101010;
+  color: #101010;
+}
+
+:is(body.theme-light, body.theme-dark) .workspace-tab-header.is-active {
+  border: 3px solid #101010;
+  box-shadow: 4px 4px 0 #101010;
+  background: #ffffff;
+  font-weight: 700;
+}
+
+:is(body.theme-light, body.theme-dark) .nav-file-title.is-active {
+  border: 2px solid #101010;
+  background: #FFDD00;
+  font-weight: 700;
+}
+
+:is(body.theme-light, body.theme-dark) .search-input-container input,
+:is(body.theme-light, body.theme-dark) input.prompt-input {
+  background: #ffffff;
+  border: 2px solid #101010;
+  color: #101010;
+}
+
+:is(body.theme-light, body.theme-dark) .search-input-container input:focus,
+:is(body.theme-light, body.theme-dark) input.prompt-input:focus {
+  box-shadow: 4px 4px 0 #101010;
+  outline: none;
+}
+
+:is(body.theme-light, body.theme-dark) .prompt {
+  background: #ffffff;
+  border: 4px solid #101010;
+  box-shadow: 8px 8px 0 #101010;
+}
+
+:is(body.theme-light, body.theme-dark) .suggestion-item.is-selected {
+  background: #FFDD00;
+  color: #101010;
+  font-weight: 700;
+}
+
+/* 状态切换为硬替换（粗野主义：不设平滑过渡） */
+:is(body.theme-light, body.theme-dark) .workspace-tab-header,
+:is(body.theme-light, body.theme-dark) .nav-file-title,
+:is(body.theme-light, body.theme-dark) .nav-folder-title,
+:is(body.theme-light, body.theme-dark) button,
+:is(body.theme-light, body.theme-dark) .clickable-icon,
+:is(body.theme-light, body.theme-dark) .tag,
+:is(body.theme-light, body.theme-dark) .callout {
+  transition: none;
+}
+
+/* ---------- 语法高亮（黑白 + 酸黄，无彩色） ---------- */
+body.theme-light {
+  --code-comment: #8a8a8a;
+  --code-keyword: #101010;
+  --code-string: #4a4a4a;
+  --code-function: #101010;
+  --code-value: #101010;
+  --code-property: #4a4a4a;
+  --code-tag: #101010;
+  --code-operator: #4a4a4a;
+  --code-punctuation: #4a4a4a;
+}
+
+/* ---------- 对侧模式调色板（body.theme-dark）：随基础模式无缝切换 ---------- */
+body.theme-dark {  --table-row-background-hover: #1e1e10;
+  --table-row-alt-background: transparent;
+  --table-column-alt-background: #161616;
+  --table-background: transparent;
+
+  --code-comment: #8a8a8a;
+  --code-keyword: #FFDD00;
+  --code-string: #c9c9c9;
+  --code-function: #FFDD00;
+  --code-value: #f5f5f5;
+  --code-property: #c9c9c9;
+  --code-tag: #FFDD00;
+  --code-operator: #c9c9c9;
+  --code-punctuation: #8a8a8a;
+  --background-primary: #121212;
+  --background-primary-alt: #1b1b1b;
+  --background-secondary: #161616;
+  --background-secondary-alt: #202020;
+  --background-modifier-border: #f5f5f5;
+  --background-modifier-border-hover: #FFDD00;
+  --background-modifier-border-focus: #FFDD00;
+  --background-modifier-hover: rgba(255, 221, 0, 0.08);
+  --background-modifier-active-hover: #26220a;
+  --background-modifier-form-field: #1b1b1b;
+  --background-modifier-box-shadow: rgba(16, 16, 16, 0.9);
+  --background-modifier-success: #fff3b0;
+  --background-modifier-error: #ffb3b3;
+  --text-on-accent: #101010;
+  --accent-h: 51;
+  --accent-s: 100%;
+  --accent-l: 50%;
+  --text-accent: #101010;
+  --text-accent-hover: #101010;
+  --interactive-normal: #1b1b1b;
+  --interactive-hover: #262626;
+  --interactive-accent: #FFDD00;
+  --interactive-accent-hover: #101010;
+  --text-normal: #f5f5f5;
+  --text-muted: #b5b5b5;
+  --text-faint: #8a8a8a;
+  --text-selection: #8a7400;
+  --text-highlight-bg: #3a3305;
+  --text-error: #c40000;
+  --link-color: #f5f5f5;
+  --link-color-hover: #FFDD00;
+  --link-external-color: #f5f5f5;
+  --link-external-color-hover: #FFDD00;
+  --link-unresolved-color: #8a8a8a;
+  --tag-color: #101010;
+  --tag-background: #FFDD00;
+  --tag-background-hover: #101010;
+  --tag-border-color: #101010;
+  --titlebar-background: #161616;
+  --titlebar-background-focused: #121212;
+  --titlebar-text-color: #8a8a8a;
+  --titlebar-text-color-focused: #f5f5f5;
+  --tab-outline-color: #f5f5f5;
+  --tab-text-color: #b5b5b5;
+  --tab-text-color-focused: #f5f5f5;
+  --tab-text-color-focused-active: #FFDD00;
+  --radius-s: 0px;
+  --radius-m: 0px;
+  --radius-l: 0px;
+  --radius-xl: 0px;
+  --input-radius: 0px;
+  --button-radius: 0px;
+  --tab-radius: 0px;
+  --checkbox-radius: 0px;
+  --code-background: #1b1b1b;
+  --code-normal: #e8e8e8;
+  --blockquote-border-color: #101010;
+  --table-header-background: #000000;
+  --table-header-color: #FFDD00;
+  --h1-color: #f5f5f5;
+  --h2-color: #f5f5f5;
+  --h3-color: #f5f5f5;
+  --h4-color: #f5f5f5;
+  --h5-color: #f5f5f5;
+  --h6-color: #b5b5b5;
+  --inline-title-color: #f5f5f5;
+  --nav-item-background-active: #FFDD00;
+  --nav-item-color-active: #121212;
+  --font-interface-theme: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-text-theme: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-monospace-theme: "JetBrains Mono", "Cascadia Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", monospace;
+  --nb-ink: #f5f5f5;
+  --nb-shadow: #FFDD00;
+  --nb-panel: #1b1b1b;
+  --nb-quote-bg: #26220a;
+  --nb-inline-bg: #FFDD00;
+  --nb-inline-ink: #121212;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-dark .app-container {
+  background: linear-gradient(to right, rgba(245, 245, 245, 0.04) 1px, transparent 1px) #121212;
+  background-size: 22px 22px;
+}
+body.theme-dark .markdown-preview-view blockquote {
+  border: 4px solid var(--nb-ink); box-shadow: 10px 10px 0 var(--nb-shadow);
+  background: var(--nb-quote-bg); color: #f5f5f5;
+}
+body.theme-dark .markdown-preview-view pre {
+  border: 4px solid var(--nb-ink); border-top: 10px solid var(--nb-ink);
+  box-shadow: 8px 8px 0 var(--nb-shadow); background: #161616;
+}
+body.theme-dark .markdown-preview-view pre::before { background: #e30613; }
+body.theme-dark .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
+  background: #161616; border-left: 4px solid var(--nb-ink); border-right: 4px solid var(--nb-ink);
+  box-shadow: 8px 0 0 var(--nb-shadow);
+}
+body.theme-dark .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin { border-top: 10px solid var(--nb-ink); }
+body.theme-dark .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::before { background: #e30613; }
+body.theme-dark .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
+  border-bottom: 4px solid var(--nb-ink); box-shadow: 8px 8px 0 var(--nb-shadow);
+}
+body.theme-dark .markdown-preview-view :not(pre) > code, body.theme-dark .cm-inline-code {
+  border: 2px solid var(--nb-ink); background: var(--nb-inline-bg); color: var(--nb-inline-ink);
+}
+body.theme-dark .markdown-preview-view table { border: 3px solid var(--nb-ink); box-shadow: 8px 8px 0 var(--nb-shadow); }
+body.theme-dark .markdown-rendered thead th { background: #000000; color: #FFDD00; border-bottom: 3px solid var(--nb-ink); }
+body.theme-dark .markdown-rendered th, body.theme-dark .markdown-rendered td { border-bottom: 2px solid var(--nb-ink); }
+body.theme-dark .markdown-rendered tbody tr:nth-child(even) { background: #1e1e10; }
+body.theme-dark .markdown-preview-view hr { border-top: 4px solid var(--nb-ink); }
+body.theme-dark .callout { border: 4px solid var(--nb-ink); box-shadow: 10px 10px 0 var(--nb-shadow); background: var(--nb-panel); }
+body.theme-dark .tag { border: 3px solid var(--nb-ink); box-shadow: 3px 3px 0 var(--nb-shadow); }
+body.theme-dark .markdown-preview-view a { background: linear-gradient(transparent 62%, #8a7400 62%); }
+body.theme-dark .markdown-preview-view a:hover { background: #FFDD00; color: #121212; }
+body.theme-dark .status-bar { background: var(--nb-panel); border-top: 2px solid var(--nb-ink); color: #f5f5f5; }
+body.theme-dark .workspace-tab-header.is-active { border: 3px solid var(--nb-ink); box-shadow: 4px 4px 0 var(--nb-shadow); background: var(--nb-panel); }
+body.theme-dark .nav-file-title.is-active { border: 2px solid var(--nb-ink); }
+body.theme-dark .search-input-container input, body.theme-dark input.prompt-input {
+  background: var(--nb-panel); border: 2px solid var(--nb-ink); color: #f5f5f5;
+}
+body.theme-dark .search-input-container input:focus, body.theme-dark input.prompt-input:focus { box-shadow: 4px 4px 0 var(--nb-shadow); }
+body.theme-dark .prompt { background: var(--nb-panel); border: 4px solid var(--nb-ink); box-shadow: 8px 8px 0 var(--nb-shadow); }
+body.theme-dark .suggestion-item.is-selected { background: #FFDD00; color: #121212; }
+body.theme-dark .markdown-preview-view h2 { border-bottom: 4px solid var(--nb-ink); }
+body.theme-dark .markdown-preview-view thead th { background: #000000; color: #FFDD00; }
+

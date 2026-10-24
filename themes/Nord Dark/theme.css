@@ -1,0 +1,340 @@
+/* ==========================================================================
+   Nord Dark — Nord 极地夜读（dark）
+   来源：承袭 Typeset 导出器（github.com/Fogecode/Typeset）的 Nord Dark 主题【只读提取】
+   （tokens 直翻 + 母题移植：1.82 舒适行高、h2 底线、霜蓝引用块、Nord 语法色）
+   ---------------------------------------------------------------------------
+   忠实静态移植，无特效开关（无动画元素）。
+   ========================================================================== */
+
+/* ---------- 变量映射层（tokens 直译） ---------- */
+body.theme-dark {
+  --background-primary: #2e3440;
+  --background-primary-alt: #3b4252;
+  --background-secondary: #292f3a;
+  --background-secondary-alt: #353c4a;
+  --background-modifier-border: #434c5e;
+  --background-modifier-border-hover: #4c566a;
+  --background-modifier-border-focus: #88c0d0;
+  --background-modifier-hover: rgba(136, 192, 208, 0.08);
+  --background-modifier-active-hover: rgba(136, 192, 208, 0.14);
+  --background-modifier-form-field: #272c36;
+  --background-modifier-box-shadow: rgba(0, 0, 0, 0.55);
+  --background-modifier-success: rgba(163, 190, 140, 0.15);
+  --background-modifier-error: rgba(191, 97, 106, 0.2);
+  --text-on-accent: #2e3440;
+  --accent-h: 193;
+  --accent-s: 43%;
+  --accent-l: 67%;
+  --text-accent: #88c0d0;
+  --text-accent-hover: #8fbcbb;
+
+  --interactive-normal: #3b4252;
+  --interactive-hover: #434c5e;
+  --interactive-accent: #88c0d0;
+  --interactive-accent-hover: #8fbcbb;
+
+  --text-normal: #d8dee9;
+  --text-muted: #9aa6ba;
+  --text-faint: #6d7a90;
+  --text-selection: rgba(136, 192, 208, 0.28);
+  --text-highlight-bg: rgba(235, 203, 139, 0.22);
+  --text-error: #bf616a;
+
+  --link-color: #8fbcbb;
+  --link-color-hover: #9fd4dc;
+  --link-external-color: #8fbcbb;
+  --link-external-color-hover: #9fd4dc;
+  --link-unresolved-color: rgba(191, 97, 106, 0.8);
+
+  --tag-color: #88c0d0;
+  --tag-background: rgba(136, 192, 208, 0.1);
+  --tag-background-hover: rgba(136, 192, 208, 0.18);
+  --tag-border-color: rgba(136, 192, 208, 0.35);
+
+  --titlebar-background: #292f3a;
+  --titlebar-background-focused: #2e3440;
+  --titlebar-text-color: #6d7a90;
+  --titlebar-text-color-focused: #d8dee9;
+
+  --tab-outline-color: #434c5e;
+  --tab-text-color: #9aa6ba;
+  --tab-text-color-focused: #d8dee9;
+  --tab-text-color-focused-active: #88c0d0;
+
+  --radius-s: 5px;
+  --radius-m: 6px;
+  --radius-l: 8px;
+  --radius-xl: 10px;
+  --input-radius: 6px;
+  --button-radius: 6px;
+  --tab-radius: 6px;
+  --checkbox-radius: 4px;
+
+  --code-background: #272c36;
+  --code-normal: #d8dee9;
+  --blockquote-border-color: #88c0d0;
+  --table-header-background: #3b4252;
+
+  --h1-color: #eceff4;
+  --h2-color: #e5e9f0;
+  --h3-color: #e5e9f0;
+  --h4-color: #88c0d0;
+  --h5-color: #9aa6ba;
+  --h6-color: #9aa6ba;
+  --inline-title-color: #eceff4;
+
+  --nav-item-background-active: rgba(136, 192, 208, 0.14);
+  --nav-item-color-active: #eceff4;
+
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-monospace-theme: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+/* ---------- 母题层 ---------- */
+
+/* 阅读节奏：1.82 行高（源主题） */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view,
+:is(body.theme-dark, body.theme-light) .markdown-source-view .cm-scroller {
+  line-height: 1.82;
+}
+
+/* 标题微收字距 */
+:is(body.theme-dark, body.theme-light) .inline-title,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h1,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h3,
+:is(body.theme-dark, body.theme-light) .cm-header-1,
+:is(body.theme-dark, body.theme-light) .cm-header-2,
+:is(body.theme-dark, body.theme-light) .cm-header-3 {
+  letter-spacing: -0.008em;
+  font-weight: 600;
+}
+
+/* h2：底线 + 下方留白 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2 {
+  border-bottom: 1px solid #434c5e;
+  padding-bottom: 0.34em;
+}
+
+/* h4：霜蓝 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h4 {
+  color: #88c0d0;
+  letter-spacing: 0.02em;
+}
+
+/* strong 提亮 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view strong,
+:is(body.theme-dark, body.theme-light) .cm-strong {
+  color: #eceff4;
+}
+
+/* 引用：霜蓝左缘 + 板岩底 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view blockquote,
+:is(body.theme-dark, body.theme-light) .markdown-source-view .HyperMD-quote {
+  border-left: 3px solid #88c0d0;
+  border-radius: 0 6px 6px 0;
+  background: rgba(59, 66, 82, 0.7);
+  padding: 0.85em 1.1em;
+  color: #c3ccdb;
+  font-style: normal;
+}
+
+/* 代码块：内嵌一线高光 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view pre,
+:is(body.theme-dark, body.theme-light) .markdown-source-view .HyperMD-codeblock {
+  border: 1px solid #2b313c;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* 行内代码 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view :not(pre) > code,
+:is(body.theme-dark, body.theme-light) .cm-inline-code {
+  background: #272c36;
+  border: 1px solid #3f4859;
+  color: #a3d4de;
+}
+
+/* 链接下划线淡化，hover 点亮 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view a {
+  text-decoration-color: rgba(143, 188, 187, 0.45);
+}
+
+/* 表格：板岩表头，行 hover 霜蓝洗光 */
+:is(body.theme-dark, body.theme-light) .markdown-rendered thead th {
+  background: #3b4252;
+  border-bottom: 1px solid #4c566a;
+  color: #eceff4;
+}
+
+:is(body.theme-dark, body.theme-light) .markdown-rendered th,
+:is(body.theme-dark, body.theme-light) .markdown-rendered td {
+  border-bottom: 1px solid #3f4859;
+}
+
+:is(body.theme-dark, body.theme-light) .markdown-rendered tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.022);
+}
+
+:is(body.theme-dark, body.theme-light) .markdown-rendered tbody tr:hover {
+  background: rgba(136, 192, 208, 0.09);
+}
+
+/* ---------- 界面 chrome ---------- */
+:is(body.theme-dark, body.theme-light) .status-bar {
+  background: #292f3a;
+  border-top: 1px solid #434c5e;
+  color: #9aa6ba;
+}
+
+:is(body.theme-dark, body.theme-light) .nav-file-title.is-active {
+  border-left: 2px solid #88c0d0;
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input,
+:is(body.theme-dark, body.theme-light) input.prompt-input {
+  background: #272c36;
+  border: 1px solid #434c5e;
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input:focus,
+:is(body.theme-dark, body.theme-light) input.prompt-input:focus {
+  border-color: #88c0d0;
+}
+
+:is(body.theme-dark, body.theme-light) .prompt {
+  background: #2e3440;
+  border: 1px solid #4c566a;
+}
+
+:is(body.theme-dark, body.theme-light) .suggestion-item.is-selected {
+  background: rgba(136, 192, 208, 0.12);
+}
+
+/* ---------- 语法高亮（Nord 官方色板） ---------- */
+body.theme-dark {
+  --code-comment: #616e88;
+  --code-keyword: #81a1c1;
+  --code-string: #a3be8c;
+  --code-function: #88c0d0;
+  --code-value: #b48ead;
+  --code-property: #ebcb8b;
+  --code-tag: #8fbcbb;
+  --code-operator: #81a1c1;
+  --code-punctuation: #81a1c1;
+}
+
+/* ---------- 对侧模式调色板（body.theme-light）：随基础模式无缝切换 ---------- */
+body.theme-light {  --table-row-background-hover: rgba(94, 129, 172, 0.10);
+  --table-row-alt-background: transparent;
+  --table-column-alt-background: #eceff4;
+  --table-header-color: #2e3440;
+  --table-background: transparent;
+
+  --code-comment: #7d8a9e;
+  --code-keyword: #52719a;
+  --code-string: #6c8a4f;
+  --code-function: #52719a;
+  --code-value: #9a5e8a;
+  --code-property: #8a7439;
+  --code-tag: #52719a;
+  --code-operator: #4c566a;
+  --code-punctuation: #7d8a9e;
+  --background-primary: #eceff4;
+  --background-primary-alt: #e5e9f0;
+  --background-secondary: #e5e9f0;
+  --background-secondary-alt: #dbe2ea;
+  --background-modifier-border: #cfd8e3;
+  --background-modifier-border-hover: #b9c5d4;
+  --background-modifier-border-focus: #5e81ac;
+  --background-modifier-hover: rgba(46, 52, 64, 0.05);
+  --background-modifier-active-hover: rgba(46, 52, 64, 0.09);
+  --background-modifier-form-field: #f6f8fa;
+  --background-modifier-box-shadow: rgba(0, 0, 0, 0.55);
+  --background-modifier-success: rgba(163, 190, 140, 0.15);
+  --background-modifier-error: rgba(191, 97, 106, 0.2);
+  --text-on-accent: #ffffff;
+  --accent-h: 213;
+  --accent-s: 29%;
+  --accent-l: 52%;
+  --text-accent: #3a5a86;
+  --text-accent-hover: #31517a;
+  --interactive-normal: #e5e9f0;
+  --interactive-hover: #dbe2ea;
+  --interactive-accent: #3a5a86;
+  --interactive-accent-hover: #31517a;
+  --text-normal: #2e3440;
+  --text-muted: #4c566a;
+  --text-faint: #7d8a9e;
+  --text-selection: rgba(94, 129, 172, 0.22);
+  --text-highlight-bg: rgba(235, 203, 139, 0.35);
+  --text-error: #bf616a;
+  --link-color: #3a5a86;
+  --link-color-hover: #31517a;
+  --link-external-color: #3a5a86;
+  --link-external-color-hover: #31517a;
+  --link-unresolved-color: rgba(191, 97, 106, 0.8);
+  --tag-color: #3a5a86;
+  --tag-background: rgba(58, 90, 134, 0.10);
+  --tag-background-hover: rgba(58, 90, 134, 0.18);
+  --tag-border-color: rgba(58, 90, 134, 0.4);
+  --titlebar-background: #e5e9f0;
+  --titlebar-background-focused: #eceff4;
+  --titlebar-text-color: #7d8a9e;
+  --titlebar-text-color-focused: #2e3440;
+  --tab-outline-color: #434c5e;
+  --tab-text-color: #9aa6ba;
+  --tab-text-color-focused: #d8dee9;
+  --tab-text-color-focused-active: #5e81ac;
+  --radius-s: 5px;
+  --radius-m: 6px;
+  --radius-l: 8px;
+  --radius-xl: 10px;
+  --input-radius: 6px;
+  --button-radius: 6px;
+  --tab-radius: 6px;
+  --checkbox-radius: 4px;
+  --code-background: #e5e9f0;
+  --code-normal: #3b4252;
+  --blockquote-border-color: #88c0d0;
+  --table-header-background: #dfe4ec;
+  --h1-color: #2e3440;
+  --h2-color: #3b4252;
+  --h3-color: #3b4252;
+  --h4-color: #5e81ac;
+  --h5-color: #9aa6ba;
+  --h6-color: #9aa6ba;
+  --inline-title-color: #2e3440;
+  --nav-item-background-active: rgba(94, 129, 172, 0.16);
+  --nav-item-color-active: #2e3440;
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Helvetica Neue", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --font-monospace-theme: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-light .markdown-preview-view h3 { color: #3b4252; }
+body.theme-light .markdown-preview-view strong, body.theme-light .cm-strong { color: #2e3440; }
+body.theme-light .markdown-preview-view blockquote, body.theme-light .markdown-source-view .HyperMD-quote {
+  border-left: 3px solid #81a1c1; background: rgba(216, 222, 231, 0.7); color: #4c566a;
+}
+body.theme-light .markdown-preview-view pre, body.theme-light .markdown-source-view .HyperMD-codeblock {
+  border-color: #c7d0dc; box-shadow: none;
+}
+body.theme-light .markdown-preview-view :not(pre) > code, body.theme-light .cm-inline-code {
+  background: #f6f8fa; border: 1px solid #c7d0dc; color: #3d6f80;
+}
+body.theme-light .markdown-preview-view thead th { background: #dfe4ec; border-bottom: 1px solid #b9c5d4; color: #2e3440; }
+body.theme-light .markdown-preview-view th, body.theme-light .markdown-preview-view td { border-bottom: 1px solid #cfd8e3; }
+body.theme-light .markdown-preview-view tbody tr:nth-child(even) { background: rgba(46, 52, 64, 0.03); }
+body.theme-light .markdown-preview-view tbody tr:hover { background: rgba(94, 129, 172, 0.10); }
+body.theme-light .status-bar { background: #e5e9f0; border-top: 1px solid #cfd8e3; color: #4c566a; }
+body.theme-light .nav-file-title.is-active { border-left: 2px solid #5e81ac; }
+body.theme-light .search-input-container input, body.theme-light input.prompt-input {
+  background: #f6f8fa; border: 1px solid #cfd8e3; color: #2e3440;
+}
+body.theme-light .search-input-container input:focus, body.theme-light input.prompt-input:focus { border-color: #5e81ac; }
+body.theme-light .prompt { background: #f6f8fa; border: 1px solid #b9c5d4; }
+body.theme-light .suggestion-item.is-selected { background: rgba(94, 129, 172, 0.14); }
+body.theme-light .app-container { background-image: none; }
+

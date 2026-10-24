@@ -1,0 +1,410 @@
+/* ==========================================================================
+   Glitch Art — 故障艺术
+   来源：luckymaomi 风格库 /ui/styles/glitch-art/（纯黑 + CMY 三色 + RGB 通道分离 + 零圆角全等宽）
+   ---------------------------------------------------------------------------
+   特效档位（改下面变量值即可切换）：
+     · 静态档 : --fx-rgb-split、--fx-scanlines、--fx-block-shadow、--fx-focus-shift 全部 none
+     · 轻特效 : 默认值（标题 RGB 分离 3px、块偏移阴影、hover 色反转；无常驻动画）
+     · 全特效 : 把 --fx-rgb-split 的 3px 改 6px、--fx-scanlines 打开（编辑区常驻扫描线）
+   规则出处：transition 一律 none（丢帧感）、零圆角、纯色块偏移阴影替代柔和阴影、
+             只用 CMY + 红 + 黑白灰。等宽是灵魂：本主题对编辑区/阅读视图直接声明
+             font-family，绕过外观设置的字体覆盖（霞鹜文楷已放进回退栈兜底 CJK）。
+   ========================================================================== */
+
+/* ---------- 特效开关 ---------- */
+body.theme-dark {
+  --fx-rgb-split: 3px 0 rgba(255, 0, 255, 0.75), -3px 0 rgba(0, 255, 255, 0.75); /* 静态: none；全特效: 6px 0 …, -6px 0 … */
+  --fx-rgb-split-strong: 6px 0 rgba(255, 0, 255, 0.85), -6px 0 rgba(0, 255, 255, 0.85);
+  --fx-scanlines: none;
+  /* --fx-scanlines: repeating-linear-gradient(0deg, rgba(0, 255, 255, 0.03) 0px, rgba(0, 255, 255, 0.03) 1px, transparent 1px, transparent 3px); */
+  --fx-block-shadow: 4px 4px 0 rgba(255, 0, 255, 0.5); /* 纯色块偏移阴影；静态: none */
+  --fx-code-shadow: 4px 4px 0 rgba(0, 255, 255, 0.2);
+  --fx-focus-shift: 4px 4px 0 rgba(255, 0, 255, 0.5), -4px -4px 0 rgba(0, 255, 255, 0.35); /* 焦点双色偏移；静态: none */
+  --fx-tab-shift: 3px 0 rgba(255, 0, 255, 0.6), -3px 0 rgba(255, 255, 0, 0.35);
+}
+
+/* ---------- 变量映射层（CMY + 红 + 黑白灰，别无他色） ---------- */
+body.theme-dark {
+  --background-primary: #0a0a0a;
+  --background-primary-alt: #111111;
+  --background-secondary: #0d0d0d;
+  --background-secondary-alt: #131313;
+  --background-modifier-border: #333333;
+  --background-modifier-border-hover: #ff00ff;
+  --background-modifier-border-focus: #00ffff;
+  --background-modifier-hover: rgba(255, 255, 255, 0.04);
+  --background-modifier-active-hover: rgba(255, 255, 255, 0.08);
+  --background-modifier-form-field: #0a0a0a;
+  --background-modifier-box-shadow: rgba(0, 255, 255, 0.3);
+  --background-modifier-success: rgba(0, 255, 255, 0.15);
+  --background-modifier-error: rgba(255, 5, 6, 0.15);
+  --text-on-accent: #0a0a0a;
+  --accent-h: 180;
+  --accent-s: 100%;
+  --accent-l: 50%;
+  --text-accent: #00ffff;
+  --text-accent-hover: #ffff00;
+
+  --interactive-normal: #0d0d0d;
+  --interactive-hover: #131313;
+  --interactive-accent: #00ffff;
+  --interactive-accent-hover: #ffff00;
+
+  --text-normal: #f2f2f2;
+  --text-muted: #a0a0a0;
+  --text-faint: #6a6a6a;
+  --text-selection: rgba(255, 0, 255, 0.28);
+  --text-highlight-bg: rgba(255, 255, 0, 0.22);
+  --text-error: #ff0506;
+
+  --link-color: #00ffff;
+  --link-color-hover: #ffff00;
+  --link-external-color: #00ffff;
+  --link-external-color-hover: #ffff00;
+  --link-unresolved-color: #ff0506;
+
+  --tag-color: #ff00ff;
+  --tag-background: transparent;
+  --tag-background-hover: #ff00ff;
+  --tag-border-color: #ff00ff;
+
+  --titlebar-background: #0a0a0a;
+  --titlebar-background-focused: #111111;
+  --titlebar-text-color: #6a6a6a;
+  --titlebar-text-color-focused: #00ffff;
+
+  --tab-outline-color: #333333;
+  --tab-text-color: #a0a0a0;
+  --tab-text-color-focused: #f2f2f2;
+  --tab-text-color-focused-active: #00ffff;
+
+  /* 零圆角 */
+  --radius-s: 0px;
+  --radius-m: 0px;
+  --radius-l: 0px;
+  --radius-xl: 0px;
+  --input-radius: 0px;
+  --button-radius: 0px;
+  --tab-radius: 0px;
+  --checkbox-radius: 0px;
+
+  --code-background: #0d0d0d;
+  --code-normal: #e0e0e0;
+  --blockquote-border-color: #ff00ff;
+  --table-header-background: #111111;
+
+  --h1-color: #ffffff;
+  --h2-color: #ffffff;
+  --h3-color: #f2f2f2;
+  --h4-color: #00ffff;
+  --h5-color: #a0a0a0;
+  --h6-color: #a0a0a0;
+  --inline-title-color: #ffffff;
+
+  --font-interface-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-text-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-monospace-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", monospace;
+}
+
+/* ---------- 等宽直写（绕过外观设置的字体覆盖链） ---------- */
+:is(body.theme-dark, body.theme-light) .markdown-source-view,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view,
+:is(body.theme-dark, body.theme-light) .inline-title {
+  font-family: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+}
+
+:is(body.theme-dark, body.theme-light) .inline-title,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h1,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h3 {
+  text-transform: none;
+  letter-spacing: 0.06em;
+  font-weight: 900;
+}
+
+/* ---------- RGB 通道分离（标题专属，hover 放大；transition:none 制造丢帧感） ---------- */
+:is(body.theme-dark, body.theme-light) .inline-title,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h1,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h3,
+:is(body.theme-dark, body.theme-light) .cm-header-1,
+:is(body.theme-dark, body.theme-light) .cm-header-2,
+:is(body.theme-dark, body.theme-light) .cm-header-3 {
+  text-shadow: var(--fx-rgb-split);
+  transition: none;
+}
+
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h1:hover,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2:hover,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h3:hover {
+  text-shadow: var(--fx-rgb-split-strong);
+  transition: none;
+}
+
+/* ---------- 扫描线（全特效档） ---------- */
+:is(body.theme-dark, body.theme-light) .markdown-source-view .cm-scroller,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view {
+  background-image: var(--fx-scanlines);
+}
+
+/* ---------- 纯色块偏移阴影层 ---------- */
+
+/* 活动标签：青边 + 品红/黄左右偏移 */
+:is(body.theme-dark, body.theme-light) .workspace-tab-header.is-active {
+  border: 1px solid #00ffff;
+  box-shadow: var(--fx-tab-shift);
+  transition: none;
+}
+
+/* Callout：完整粗边框标记 + 偏移阴影，hover 换色 */
+:is(body.theme-dark, body.theme-light) .callout {
+  border: 2px solid #ff00ff;
+  box-shadow: var(--fx-block-shadow);
+  transition: none;
+}
+
+:is(body.theme-dark, body.theme-light) .callout:hover {
+  border-color: #00ffff;
+  transition: none;
+}
+
+/* 代码块：青色偏移阴影 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view pre,
+:is(body.theme-dark, body.theme-light) .markdown-source-view .HyperMD-codeblock {
+  border: 1px solid #333333;
+  box-shadow: var(--fx-code-shadow);
+}
+
+/* 行内代码 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view :not(pre) > code,
+:is(body.theme-dark, body.theme-light) .cm-inline-code {
+  background: #111111;
+  border: 1px solid #333333;
+  color: #00ffff;
+}
+
+/* 引用：品红粗左线 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view blockquote,
+:is(body.theme-dark, body.theme-light) .markdown-source-view .HyperMD-quote {
+  border-left: 3px solid #ff00ff;
+}
+
+/* ---------- 交互：hover 快速反转，transition:none ---------- */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view a,
+:is(body.theme-dark, body.theme-light) .cm-link,
+:is(body.theme-dark, body.theme-light) .cm-hmd-internal-link {
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 255, 255, 0.4);
+  transition: none;
+}
+
+:is(body.theme-dark, body.theme-light) .markdown-preview-view a:hover {
+  background: #00ffff;
+  color: #0a0a0a;
+  text-decoration: none;
+  transition: none;
+}
+
+/* 标签：方形品红描边，hover 反转 */
+:is(body.theme-dark, body.theme-light) .tag {
+  border: 1px solid #ff00ff;
+  background: transparent;
+  transition: none;
+}
+
+:is(body.theme-dark, body.theme-light) .tag:hover {
+  background: #ff00ff;
+  color: #0a0a0a;
+  transition: none;
+}
+
+/* 文件树活动项：青色左边线 + 白/10 底 */
+:is(body.theme-dark, body.theme-light) .nav-file-title.is-active {
+  border-left: 2px solid #00ffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:is(body.theme-dark, body.theme-light) .nav-file-title:hover,
+:is(body.theme-dark, body.theme-light) .nav-folder-title:hover,
+:is(body.theme-dark, body.theme-light) .workspace-tab-header,
+:is(body.theme-dark, body.theme-light) button,
+:is(body.theme-dark, body.theme-light) .clickable-icon {
+  transition: none;
+}
+
+/* ---------- 界面 chrome ---------- */
+:is(body.theme-dark, body.theme-light) .status-bar {
+  border-top: 1px solid #333333;
+  color: #a0a0a0;
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input,
+:is(body.theme-dark, body.theme-light) input.prompt-input {
+  background: #0a0a0a;
+  border: 2px solid #333333;
+  color: #ffffff;
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input::placeholder,
+:is(body.theme-dark, body.theme-light) input.prompt-input::placeholder {
+  color: #333333;
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input:focus,
+:is(body.theme-dark, body.theme-light) input.prompt-input:focus {
+  border-color: #00ffff;
+  box-shadow: var(--fx-focus-shift);
+  outline: none;
+}
+
+:is(body.theme-dark, body.theme-light) .prompt {
+  background: #0a0a0a;
+  border: 2px solid #ff00ff;
+  box-shadow: var(--fx-block-shadow);
+}
+
+:is(body.theme-dark, body.theme-light) .suggestion-item.is-selected {
+  background: #00ffff;
+  color: #0a0a0a;
+}
+
+:is(body.theme-dark, body.theme-light) .cm-cursor {
+  border-left: 2px solid #00ffff;
+}
+
+/* ---------- 语法高亮（CMY 三色 + 灰） ---------- */
+body.theme-dark {
+  --code-comment: #6a6a6a;
+  --code-keyword: #ff00ff;
+  --code-string: #ffff00;
+  --code-function: #00ffff;
+  --code-value: #ffffff;
+  --code-property: #00ffff;
+  --code-tag: #ff00ff;
+  --code-operator: #a0a0a0;
+  --code-punctuation: #a0a0a0;
+}
+
+/* ---------- 对侧模式调色板（body.theme-light）：随基础模式无缝切换 ---------- */
+body.theme-light {  --table-row-background-hover: rgba(0, 0, 0, 0.05);
+  --table-row-alt-background: transparent;
+  --table-column-alt-background: #fafafa;
+  --table-header-color: #141414;
+  --table-background: transparent;
+
+  --code-comment: #7a7a7a;
+  --code-keyword: #b000b0;
+  --code-string: #8a7400;
+  --code-function: #00748f;
+  --code-value: #141414;
+  --code-property: #00748f;
+  --code-tag: #b000b0;
+  --code-operator: #4d4d4d;
+  --code-punctuation: #7a7a7a;
+  --background-primary: #fafafa;
+  --background-primary-alt: #f1f1f1;
+  --background-secondary: #f4f4f4;
+  --background-secondary-alt: #ececec;
+  --background-modifier-border: #333333;
+  --background-modifier-border-hover: #c400c4;
+  --background-modifier-border-focus: #00ffff;
+  --background-modifier-hover: rgba(0, 0, 0, 0.05);
+  --background-modifier-active-hover: rgba(0, 0, 0, 0.10);
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-box-shadow: rgba(0, 255, 255, 0.3);
+  --background-modifier-success: rgba(0, 255, 255, 0.15);
+  --background-modifier-error: rgba(255, 5, 6, 0.15);
+  --text-on-accent: #0a0a0a;
+  --accent-h: 193;
+  --accent-s: 100%;
+  --accent-l: 34%;
+  --text-accent: #00748f;
+  --text-accent-hover: #b3a300;
+  --interactive-normal: #f1f1f1;
+  --interactive-hover: #e8e8e8;
+  --interactive-accent: #0086a8;
+  --interactive-accent-hover: #a800a8;
+  --text-normal: #141414;
+  --text-muted: #4d4d4d;
+  --text-faint: #7a7a7a;
+  --text-selection: rgba(196, 0, 196, 0.16);
+  --text-highlight-bg: rgba(196, 168, 0, 0.25);
+  --text-error: #ff0506;
+  --link-color: #00748f;
+  --link-color-hover: #a800a8;
+  --link-external-color: #00748f;
+  --link-external-color-hover: #a800a8;
+  --link-unresolved-color: #ff0506;
+  --tag-color: #b000b0;
+  --tag-background: transparent;
+  --tag-background-hover: #c400c4;
+  --tag-border-color: #c400c4;
+  --titlebar-background: #f4f4f4;
+  --titlebar-background-focused: #fafafa;
+  --titlebar-text-color: #7a7a7a;
+  --titlebar-text-color-focused: #0086a8;
+  --tab-outline-color: #333333;
+  --tab-text-color: #a0a0a0;
+  --tab-text-color-focused: #f2f2f2;
+  --tab-text-color-focused-active: #0086a8;
+  --radius-s: 0px;
+  --radius-m: 0px;
+  --radius-l: 0px;
+  --radius-xl: 0px;
+  --input-radius: 0px;
+  --button-radius: 0px;
+  --tab-radius: 0px;
+  --checkbox-radius: 0px;
+  --code-background: #f1f1f1;
+  --code-normal: #242424;
+  --blockquote-border-color: #ff00ff;
+  --table-header-background: #efefef;
+  --h1-color: #141414;
+  --h2-color: #141414;
+  --h3-color: #141414;
+  --h4-color: #00748f;
+  --h5-color: #4d4d4d;
+  --h6-color: #4d4d4d;
+  --inline-title-color: #141414;
+  --font-interface-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-text-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-monospace-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", monospace;
+  --fx-rgb-split: none;
+  --fx-rgb-split-strong: none;
+  --fx-scanlines: repeating-linear-gradient(0deg, rgba(0, 255, 255, 0.03) 0px, rgba(0, 255, 255, 0.03) 1px, transparent 1px, transparent 3px);
+  --fx-block-shadow: 4px 4px 0 rgba(196, 0, 196, 0.35);
+  --fx-code-shadow: 4px 4px 0 rgba(0, 134, 168, 0.18);
+  --fx-focus-shift: 4px 4px 0 rgba(196, 0, 196, 0.35), -4px -4px 0 rgba(0, 134, 168, 0.28);
+  --fx-tab-shift: 3px 0 rgba(196, 0, 196, 0.5), -3px 0 rgba(160, 140, 0, 0.4);
+  --gl-cyan: #0086a8;
+  --gl-magenta: #c400c4;
+  --gl-yellow: #8a7400;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-light .inline-title, body.theme-light .markdown-preview-view h1,
+body.theme-light .markdown-preview-view h2, body.theme-light .markdown-preview-view h3,
+body.theme-light .cm-header-1, body.theme-light .cm-header-2, body.theme-light .cm-header-3 {
+  text-shadow: var(--fx-rgb-split);
+}
+body.theme-light .callout { border-color: var(--gl-magenta); box-shadow: var(--fx-block-shadow); }
+body.theme-light .workspace-tab-header.is-active { border-color: var(--gl-cyan); box-shadow: var(--fx-tab-shift); }
+body.theme-light .tag { border: 1px solid var(--gl-magenta); }
+body.theme-light .tag:hover { background: var(--gl-magenta); color: #ffffff; }
+body.theme-light .markdown-preview-view a:hover { background: var(--gl-cyan); color: #ffffff; }
+body.theme-light .markdown-preview-view blockquote, body.theme-light .markdown-source-view .HyperMD-quote {
+  border-left: 3px solid var(--gl-magenta);
+}
+body.theme-light .markdown-preview-view :not(pre) > code, body.theme-light .cm-inline-code {
+  background: #efefef; border: 1px solid #333333; color: var(--gl-cyan);
+}
+body.theme-light .nav-file-title.is-active { border-left: 2px solid var(--gl-cyan); background: rgba(0, 0, 0, 0.07); }
+body.theme-light .search-input-container input, body.theme-light input.prompt-input {
+  background: #ffffff; border: 2px solid #333333; color: #141414;
+}
+body.theme-light .search-input-container input::placeholder, body.theme-light input.prompt-input::placeholder { color: #9a9a9a; }
+body.theme-light .search-input-container input:focus, body.theme-light input.prompt-input:focus { border-color: var(--gl-cyan); box-shadow: var(--fx-focus-shift); }
+body.theme-light .prompt { background: #ffffff; border: 2px solid var(--gl-magenta); box-shadow: var(--fx-block-shadow); }
+body.theme-light .suggestion-item.is-selected { background: var(--gl-cyan); color: #ffffff; }
+body.theme-light .status-bar { color: #4d4d4d; }
+

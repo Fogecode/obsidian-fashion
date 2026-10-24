@@ -1,0 +1,383 @@
+/* ==========================================================================
+   Terminal Phosphor — 平静磷光终端
+   来源：承袭 Typeset 导出器（github.com/Fogecode/Typeset）的 Terminal 主题【只读提取】
+   （tokens 直翻 + 母题移植：## 提示符标题、标题后闪烁块光标、绿色径向洗光）
+   ---------------------------------------------------------------------------
+   特效档位（改下面变量值即可切换）：
+     · 静态档 : --fx-blink、--fx-green-wash 设为 none
+     · 轻特效 : 默认值（标题块光标闪烁 = 单字符 1.1s step-end，成本≈0）
+     · 关前缀 : --fx-h2-prefix / --fx-h3-prefix / --fx-h4-prefix 值改 ""（## 提示符母题整体关闭）
+   说明：等宽是本主题灵魂，对编辑区/阅读视图直接声明 font-family，
+         绕过外观设置的字体覆盖（霞鹜文楷在回退栈兜底 CJK）。
+   ## 前缀只在源码符号不可见处出现（阅读视图 / 实时预览未聚焦行），
+   源码模式不注入，避免与真实 ## 叠加（v1.0.1 修复）。
+   ========================================================================== */
+
+/* ---------- 特效开关 ---------- */
+body.theme-dark {
+  --fx-blink: tp-blink 1.1s step-end infinite; /* 静态档改 none */
+  --fx-green-wash: radial-gradient(120% 80% at 50% 0%, rgba(51, 255, 102, 0.045), transparent 62%); /* 静态档改 none */
+  /* ## 提示符前缀（主题母题）。嫌吵想全部关掉：把三个变量的值改为 "" */
+  --fx-h2-prefix: "## ";
+  --fx-h3-prefix: "### ";
+  --fx-h4-prefix: "› ";
+}
+
+@keyframes tp-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ---------- 变量映射层（tokens 直译自导出器 terminal.ts） ---------- */
+body.theme-dark {
+  --background-primary: #0b0f0b;
+  --background-primary-alt: #121a12;
+  --background-secondary: #0d130d;
+  --background-secondary-alt: #101711;
+  --background-modifier-border: #233323;
+  --background-modifier-border-hover: rgba(51, 255, 102, 0.5);
+  --background-modifier-border-focus: rgba(51, 255, 102, 0.7);
+  --background-modifier-hover: rgba(51, 255, 102, 0.06);
+  --background-modifier-active-hover: rgba(51, 255, 102, 0.1);
+  --background-modifier-form-field: #0d130d;
+  --background-modifier-box-shadow: rgba(51, 255, 102, 0.25);
+  --background-modifier-success: rgba(51, 255, 102, 0.15);
+  --background-modifier-error: rgba(255, 80, 80, 0.15);
+  --text-on-accent: #04120a;
+  --accent-h: 135;
+  --accent-s: 100%;
+  --accent-l: 60%;
+  --text-accent: #33ff66;
+  --text-accent-hover: #5fff8d;
+
+  --interactive-normal: #121a12;
+  --interactive-hover: #162116;
+  --interactive-accent: #33ff66;
+  --interactive-accent-hover: #5fff8d;
+
+  --text-normal: #cfe0cf;
+  --text-muted: #7f9a80;
+  --text-faint: #56705a;
+  --text-selection: rgba(51, 255, 102, 0.22);
+  --text-highlight-bg: rgba(51, 255, 102, 0.16);
+  --text-error: #ff6b6b;
+
+  --link-color: #33ff66;
+  --link-color-hover: #5fff8d;
+  --link-external-color: #7ce38f;
+  --link-external-color-hover: #9df0aa;
+  --link-unresolved-color: rgba(255, 107, 107, 0.8);
+
+  --tag-color: #33ff66;
+  --tag-background: rgba(51, 255, 102, 0.08);
+  --tag-background-hover: rgba(51, 255, 102, 0.16);
+  --tag-border-color: rgba(51, 255, 102, 0.4);
+
+  --titlebar-background: #0d130d;
+  --titlebar-background-focused: #0b0f0b;
+  --titlebar-text-color: #56705a;
+  --titlebar-text-color-focused: #33ff66;
+
+  --tab-outline-color: #233323;
+  --tab-text-color: #7f9a80;
+  --tab-text-color-focused: #cfe0cf;
+  --tab-text-color-focused-active: #33ff66;
+
+  --radius-s: 2px;
+  --radius-m: 2px;
+  --radius-l: 3px;
+  --radius-xl: 4px;
+  --input-radius: 2px;
+  --button-radius: 2px;
+  --tab-radius: 0px;
+  --checkbox-radius: 0px;
+
+  --code-background: #0d130d;
+  --code-normal: #cfe0cf;
+  --blockquote-border-color: rgba(51, 255, 102, 0.5);
+  --table-header-background: #101711;
+
+  --h1-color: #e4f2e4;
+  --h2-color: #e4f2e4;
+  --h3-color: #d5e8d5;
+  --h4-color: #33ff66;
+  --h5-color: #7f9a80;
+  --h6-color: #7f9a80;
+  --inline-title-color: #e4f2e4;
+
+  --font-interface-theme: ui-monospace, "Cascadia Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "霞鹜文楷", monospace;
+  --font-text-theme: ui-monospace, "Cascadia Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "霞鹜文楷", monospace;
+  --font-monospace-theme: ui-monospace, "Cascadia Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "霞鹜文楷", monospace;
+}
+
+/* ---------- 等宽直写（绕过外观设置的字体覆盖链） ---------- */
+:is(body.theme-dark, body.theme-light) .markdown-source-view,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view,
+:is(body.theme-dark, body.theme-light) .inline-title {
+  font-family: ui-monospace, "Cascadia Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "霞鹜文楷", monospace;
+}
+
+/* 阅读节奏：终端行高（源主题 line-height 1.8） */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view,
+:is(body.theme-dark, body.theme-light) .markdown-source-view .cm-scroller {
+  line-height: 1.8;
+}
+
+/* ---------- 绿色径向洗光（源主题 body background-image） ---------- */
+:is(body.theme-dark, body.theme-light) .app-container {
+  background-image: var(--fx-green-wash);
+  background-repeat: no-repeat;
+}
+
+/* ---------- 母题：提示符标题 ----------
+   前缀只在「源码符号不可见」的场合出现，绝不与真实 ## 叠加：
+     · 阅读视图：无源码符号 → 显示前缀
+     · 实时预览（.is-live-preview）且光标不在该行：Obsidian 隐藏源码 ## → 显示前缀
+     · 实时预览且光标进入该行：源码 ## 显现 → 前缀让位
+     · 源码模式（无 .is-live-preview）：每行都显示源码 ## → 不注入前缀 */
+
+/* 阅读视图：h2/h3/h4 前缀 ## / ### / › */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2::before {
+  content: var(--fx-h2-prefix);
+  color: #33ff66;
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h3::before {
+  content: var(--fx-h3-prefix);
+  color: #33ff66;
+  opacity: 0.42;
+  font-weight: 400;
+}
+
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h4::before {
+  content: var(--fx-h4-prefix);
+  color: #33ff66;
+  opacity: 0.7;
+}
+
+/* 实时预览：仅未聚焦标题行注入前缀 */
+:is(body.theme-dark, body.theme-light) .markdown-source-view.is-live-preview .HyperMD-header-2:not(.cm-active) .cm-header-2::before {
+  content: var(--fx-h2-prefix);
+  color: #33ff66;
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+:is(body.theme-dark, body.theme-light) .markdown-source-view.is-live-preview .HyperMD-header-3:not(.cm-active) .cm-header-3::before {
+  content: var(--fx-h3-prefix);
+  color: #33ff66;
+  opacity: 0.42;
+  font-weight: 400;
+}
+
+/* 笔记标题后的磷光块光标（源主题 .hx-title::after） */
+:is(body.theme-dark, body.theme-light) .inline-title::after {
+  content: "▌";
+  color: #33ff66;
+  margin-left: 0.12em;
+  font-weight: 400;
+  animation: var(--fx-blink, none);
+}
+
+/* strong：更亮的磷光白（源主题 #eafbea） */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view strong,
+:is(body.theme-dark, body.theme-light) .cm-strong {
+  color: #eafbea;
+}
+
+/* 标签：终端 [tag] 风格 */
+:is(body.theme-dark, body.theme-light) .tag::before {
+  content: "[";
+  color: #56705a;
+}
+
+:is(body.theme-dark, body.theme-light) .tag::after {
+  content: "]";
+  color: #56705a;
+}
+
+/* 引用：细绿左线 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view blockquote,
+:is(body.theme-dark, body.theme-light) .markdown-source-view .HyperMD-quote {
+  border-left: 2px solid rgba(51, 255, 102, 0.5);
+  color: #7f9a80;
+}
+
+/* 行内代码 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view :not(pre) > code,
+:is(body.theme-dark, body.theme-light) .cm-inline-code {
+  background: #0d130d;
+  border: 1px solid #233323;
+}
+
+/* ---------- 界面 chrome ---------- */
+:is(body.theme-dark, body.theme-light) .status-bar {
+  border-top: 1px solid #233323;
+  color: #7f9a80;
+  font-family: var(--font-monospace-theme);
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input,
+:is(body.theme-dark, body.theme-light) input.prompt-input {
+  background: #0d130d;
+  border: 1px solid #233323;
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input:focus,
+:is(body.theme-dark, body.theme-light) input.prompt-input:focus {
+  border-color: #33ff66;
+}
+
+:is(body.theme-dark, body.theme-light) .prompt {
+  background: rgba(11, 15, 11, 0.97);
+  border: 1px solid rgba(51, 255, 102, 0.3);
+}
+
+:is(body.theme-dark, body.theme-light) .suggestion-item.is-selected {
+  background: rgba(51, 255, 102, 0.1);
+}
+
+:is(body.theme-dark, body.theme-light) .cm-cursor {
+  border-left-color: #33ff66;
+}
+
+:is(body.theme-dark, body.theme-light) .nav-file-title.is-active {
+  border-left: 2px solid #33ff66;
+  background: rgba(51, 255, 102, 0.08);
+}
+
+/* ---------- 语法高亮（磷光绿单色系） ---------- */
+body.theme-dark {
+  --code-comment: #56705a;
+  --code-keyword: #7ce38f;
+  --code-string: #a8d9a8;
+  --code-function: #d2f0d2;
+  --code-value: #eafbea;
+  --code-property: #9fd9a0;
+  --code-operator: #cfe0cf;
+  --code-punctuation: #cfe0cf;
+  --code-tag: #7ce38f;
+}
+
+/* ---------- 对侧模式调色板（body.theme-light）：随基础模式无缝切换 ---------- */
+body.theme-light {  --table-row-background-hover: rgba(12, 122, 54, 0.07);
+  --table-row-alt-background: transparent;
+  --table-column-alt-background: #f7faf5;
+  --table-header-color: #17301c;
+  --table-background: transparent;
+
+  --code-comment: #6e8a75;
+  --code-keyword: #0a7a46;
+  --code-string: #55673a;
+  --code-function: #1d5c8a;
+  --code-value: #8a4b0a;
+  --code-property: #55673a;
+  --code-operator: #40604a;
+  --code-punctuation: #6e8a75;
+  --code-tag: #0a7a46;
+  --background-primary: #f7faf5;
+  --background-primary-alt: #eef4ec;
+  --background-secondary: #eef4ec;
+  --background-secondary-alt: #e5eee3;
+  --background-modifier-border: #c9d8c9;
+  --background-modifier-border-hover: rgba(12, 122, 54, 0.5);
+  --background-modifier-border-focus: rgba(12, 122, 54, 0.7);
+  --background-modifier-hover: rgba(12, 122, 54, 0.06);
+  --background-modifier-active-hover: rgba(12, 122, 54, 0.10);
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-box-shadow: rgba(51, 255, 102, 0.25);
+  --background-modifier-success: rgba(51, 255, 102, 0.15);
+  --background-modifier-error: rgba(255, 80, 80, 0.15);
+  --text-on-accent: #ffffff;
+  --accent-h: 138;
+  --accent-s: 73%;
+  --accent-l: 26%;
+  --text-accent: #0c7a36;
+  --text-accent-hover: #0a6830;
+  --interactive-normal: #eef4ec;
+  --interactive-hover: #e2ece0;
+  --interactive-accent: #0c7a36;
+  --interactive-accent-hover: #0a6830;
+  --text-normal: #17301c;
+  --text-muted: #40604a;
+  --text-faint: #6e8a75;
+  --text-selection: rgba(12, 122, 54, 0.16);
+  --text-highlight-bg: rgba(12, 122, 54, 0.12);
+  --text-error: #ff6b6b;
+  --link-color: #0a7a36;
+  --link-color-hover: #086a30;
+  --link-external-color: #0a7a8a;
+  --link-external-color-hover: #08626e;
+  --link-unresolved-color: rgba(255, 107, 107, 0.8);
+  --tag-color: #0c7a36;
+  --tag-background: rgba(12, 122, 54, 0.08);
+  --tag-background-hover: rgba(12, 122, 54, 0.16);
+  --tag-border-color: rgba(12, 122, 54, 0.4);
+  --titlebar-background: #eef4ec;
+  --titlebar-background-focused: #f7faf5;
+  --titlebar-text-color: #6e8a75;
+  --titlebar-text-color-focused: #17301c;
+  --tab-outline-color: #233323;
+  --tab-text-color: #7f9a80;
+  --tab-text-color-focused: #cfe0cf;
+  --tab-text-color-focused-active: #0c7a36;
+  --radius-s: 2px;
+  --radius-m: 2px;
+  --radius-l: 3px;
+  --radius-xl: 4px;
+  --input-radius: 2px;
+  --button-radius: 2px;
+  --tab-radius: 0px;
+  --checkbox-radius: 0px;
+  --code-background: #eef4ec;
+  --code-normal: #1d3a24;
+  --blockquote-border-color: rgba(51, 255, 102, 0.5);
+  --table-header-background: #e5eee3;
+  --h1-color: #12301a;
+  --h2-color: #12301a;
+  --h3-color: #1d3a24;
+  --h4-color: #0c7a36;
+  --h5-color: #7f9a80;
+  --h6-color: #7f9a80;
+  --inline-title-color: #12301a;
+  --font-interface-theme: ui-monospace, "Cascadia Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "霞鹜文楷", monospace;
+  --font-text-theme: ui-monospace, "Cascadia Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "霞鹜文楷", monospace;
+  --font-monospace-theme: ui-monospace, "Cascadia Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "霞鹜文楷", monospace;
+  --fx-blink: tp-blink 1.1s step-end infinite;
+  --fx-green-wash: radial-gradient(120% 80% at 50% 0%, rgba(12, 122, 54, 0.05), transparent 62%);
+  --fx-h2-prefix: "## ";
+  --fx-h3-prefix: "### ";
+  --fx-h4-prefix: "› ";
+  --tp-green: #0c7a36;
+  --tp-strong: #143d22;
+  --tp-quote: #40604a;
+  --tp-bracket: #5b7462;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-light .markdown-preview-view h2::before,
+body.theme-light .markdown-source-view .HyperMD-header-2:not(.cm-active) .cm-header-2::before { color: var(--tp-green); }
+body.theme-light .markdown-preview-view h3::before,
+body.theme-light .markdown-source-view .HyperMD-header-3:not(.cm-active) .cm-header-3::before { color: var(--tp-green); }
+body.theme-light .markdown-preview-view h4::before { color: var(--tp-green); }
+body.theme-light .inline-title::after { color: var(--tp-green); }
+body.theme-light .markdown-preview-view strong, body.theme-light .cm-strong { color: var(--tp-strong); }
+body.theme-light .tag::before, body.theme-light .tag::after { color: var(--tp-bracket); }
+body.theme-light .markdown-preview-view blockquote, body.theme-light .markdown-source-view .HyperMD-quote {
+  border-left: 2px solid rgba(12, 122, 54, 0.5); color: var(--tp-quote);
+}
+body.theme-light .markdown-preview-view :not(pre) > code, body.theme-light .cm-inline-code {
+  background: #ffffff; border: 1px solid #c9d8c9;
+}
+body.theme-light .nav-file-title.is-active { border-left: 2px solid var(--tp-green); background: rgba(12, 122, 54, 0.08); }
+body.theme-light .status-bar { color: #40604a; }
+body.theme-light .search-input-container input, body.theme-light input.prompt-input {
+  background: #ffffff; border: 1px solid #c9d8c9; color: #17301c;
+}
+body.theme-light .search-input-container input:focus, body.theme-light input.prompt-input:focus { border-color: var(--tp-green); }
+body.theme-light .prompt { background: rgba(247, 250, 245, 0.97); border: 1px solid rgba(12, 122, 54, 0.35); }
+body.theme-light .suggestion-item.is-selected { background: rgba(12, 122, 54, 0.10); }
+body.theme-light .cm-cursor { border-left-color: var(--tp-green); }
+

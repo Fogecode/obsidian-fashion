@@ -1,0 +1,331 @@
+/* ==========================================================================
+   Cyberpunk Neon — 赛博朋克霓虹
+   来源：luckymaomi 风格库 /ui/styles/cyberpunk-neon/（近黑底 + 青/品红霓虹 + 扫描线）
+   ---------------------------------------------------------------------------
+   特效档位（改下面变量值即可切换）：
+     · 静态档 : 所有 --fx-* 设为 none
+     · 轻特效 : 默认值（hover/焦点发光、代码块扫描线，无常驻动画）
+     · 全特效 : 在默认值基础上把 --fx-scanlines 打开（编辑区常驻扫描线）
+   规则出处：发光不脉冲到影响可读性；交互 100~150ms；:active 错位不缩放。
+   ========================================================================== */
+
+/* ---------- 特效开关 ---------- */
+body.theme-dark {
+  /* 静态档全部改 none */
+  --fx-title-glow: 0 0 14px rgba(0, 255, 255, 0.35);
+  --fx-link-glow: 0 0 8px rgba(0, 255, 255, 0.35);
+  --fx-active-glow: 0 0 12px rgba(0, 255, 255, 0.35);
+  --fx-panel-glow: 0 0 10px rgba(0, 255, 255, 0.12), 0 0 2px rgba(0, 255, 255, 0.35);
+  /* 代码块扫描线（轻特效即开，极淡） */
+  --fx-code-scanlines: repeating-linear-gradient(0deg, rgba(0, 255, 255, 0.03) 0px, rgba(0, 255, 255, 0.03) 1px, transparent 1px, transparent 3px);
+  /* 编辑区常驻扫描线：静态/轻特效为 none，全特效改为下行注释里的值 */
+  --fx-scanlines: none;
+  /* --fx-scanlines: repeating-linear-gradient(0deg, rgba(0, 255, 255, 0.025) 0px, rgba(0, 255, 255, 0.025) 1px, transparent 1px, transparent 3px); */
+}
+
+/* ---------- 变量映射层 ---------- */
+body.theme-dark {
+  --background-primary: #0a0a0f;
+  --background-primary-alt: #0d0d16;
+  --background-secondary: #07070c;
+  --background-secondary-alt: #0d0d16;
+  --background-modifier-border: rgba(0, 255, 255, 0.16);
+  --background-modifier-border-hover: rgba(0, 255, 255, 0.3);
+  --background-modifier-border-focus: rgba(0, 255, 255, 0.5);
+  --background-modifier-hover: rgba(0, 255, 255, 0.06);
+  --background-modifier-active-hover: rgba(0, 255, 255, 0.1);
+  --background-modifier-form-field: #07070c;
+  --background-modifier-box-shadow: rgba(0, 195, 255, 0.3);
+  --background-modifier-success: rgba(0, 255, 0, 0.15);
+  --background-modifier-error: rgba(255, 5, 6, 0.15);
+  --text-on-accent: #0a0a0f;
+  --accent-h: 180;
+  --accent-s: 100%;
+  --accent-l: 50%;
+  --text-accent: #00ffff;
+  --text-accent-hover: #4dffff;
+
+  --interactive-normal: #0d0d16;
+  --interactive-hover: #131322;
+  --interactive-accent: #00ffff;
+  --interactive-accent-hover: #4dffff;
+
+  --text-normal: #e8fbfb;
+  --text-muted: #8aa3a8;
+  --text-faint: #4d6468;
+  --text-selection: rgba(0, 255, 255, 0.22);
+  --text-highlight-bg: rgba(255, 255, 0, 0.18);
+  --text-error: #ff0506;
+
+  --link-color: #00ffff;
+  --link-color-hover: #4dffff;
+  --link-external-color: #ff6bff;
+  --link-external-color-hover: #ff9cff;
+  --link-unresolved-color: rgba(255, 5, 6, 0.8);
+
+  --tag-color: #ff00ff;
+  --tag-background: rgba(255, 0, 255, 0.1);
+  --tag-background-hover: rgba(255, 0, 255, 0.2);
+  --tag-border-color: rgba(255, 0, 255, 0.35);
+
+  --titlebar-background: #07070c;
+  --titlebar-background-focused: #0a0a0f;
+  --titlebar-text-color: rgba(0, 255, 255, 0.55);
+  --titlebar-text-color-focused: #00ffff;
+
+  --tab-outline-color: rgba(0, 255, 255, 0.16);
+  --tab-text-color: #8aa3a8;
+  --tab-text-color-focused: #c7f5f5;
+  --tab-text-color-focused-active: #00ffff;
+
+  --radius-s: 3px;
+  --radius-m: 4px;
+  --radius-l: 6px;
+  --radius-xl: 8px;
+  --input-radius: 4px;
+  --button-radius: 4px;
+  --tab-radius: 4px;
+  --checkbox-radius: 2px;
+
+  --code-background: #05050a;
+  --code-normal: #9fe8e8;
+  --blockquote-border-color: rgba(0, 255, 255, 0.4);
+  --table-header-background: #0d0d16;
+
+  --h1-color: #e8fbfb;
+  --h2-color: #7dfcff;
+  --h3-color: #7dfcff;
+  --h4-color: #c7f5f5;
+  --h5-color: #8aa3a8;
+  --h6-color: #8aa3a8;
+  --inline-title-color: #e8fbfb;
+
+  --font-interface-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-text-theme: -apple-system, "Segoe UI", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-monospace-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", monospace;
+}
+
+/* ---------- 霓虹发光层 ---------- */
+
+/* 标题：等宽 + 宽字距 + 发光（正文文字不发光） */
+:is(body.theme-dark, body.theme-light) .inline-title,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h1,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h3,
+:is(body.theme-dark, body.theme-light) .cm-header-1,
+:is(body.theme-dark, body.theme-light) .cm-header-2,
+:is(body.theme-dark, body.theme-light) .cm-header-3 {
+  font-family: var(--font-monospace-theme);
+  letter-spacing: 0.05em;
+  text-shadow: var(--fx-title-glow);
+}
+
+/* 链接发光 */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view a,
+:is(body.theme-dark, body.theme-light) .cm-link,
+:is(body.theme-dark, body.theme-light) .cm-hmd-internal-link {
+  text-shadow: var(--fx-link-glow);
+}
+
+/* 活动标签：青色描边 + 发光 */
+:is(body.theme-dark, body.theme-light) .workspace-tab-header.is-active {
+  box-shadow: var(--fx-active-glow);
+}
+
+/* 活动窗格标题栏底线：霓虹一线 */
+:is(body.theme-dark, body.theme-light) .workspace-leaf.mod-active .view-header {
+  border-bottom: 1px solid rgba(0, 255, 255, 0.35);
+  box-shadow: 0 4px 12px -6px rgba(0, 255, 255, 0.45);
+}
+
+/* 文件树活动项：青色内衬 */
+:is(body.theme-dark, body.theme-light) .nav-file-title.is-active {
+  box-shadow: inset 0 0 12px rgba(0, 255, 255, 0.12);
+  border-left: 2px solid #00ffff;
+}
+
+/* ---------- 扫描线层 ---------- */
+
+/* 代码块（阅读视图 + 编辑器） */
+:is(body.theme-dark, body.theme-light) .markdown-preview-view pre,
+:is(body.theme-dark, body.theme-light) .markdown-source-view .HyperMD-codeblock {
+  background-image: var(--fx-code-scanlines);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+/* 编辑/阅读区（全特效档才可见） */
+:is(body.theme-dark, body.theme-light) .markdown-source-view .cm-scroller,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view {
+  background-image: var(--fx-scanlines);
+}
+
+/* ---------- 界面 chrome ---------- */
+
+:is(body.theme-dark, body.theme-light) .status-bar {
+  border-top: 1px solid rgba(0, 255, 255, 0.25);
+  color: #8aa3a8;
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input,
+:is(body.theme-dark, body.theme-light) input.prompt-input {
+  background: #07070c;
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  font-family: var(--font-monospace-theme);
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input:focus,
+:is(body.theme-dark, body.theme-light) input.prompt-input:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.35);
+}
+
+/* 命令面板 / 快速切换：霓虹终端窗 */
+:is(body.theme-dark, body.theme-light) .prompt {
+  background: rgba(10, 10, 18, 0.95);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  box-shadow: var(--fx-panel-glow), 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+:is(body.theme-dark, body.theme-light) .suggestion-item.is-selected {
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: inset 0 0 14px rgba(0, 255, 255, 0.12);
+}
+
+/* 光标：霓虹青 */
+:is(body.theme-dark, body.theme-light) .cm-cursor {
+  border-left-color: #00ffff;
+}
+
+/* 交互节奏：快速（100~150ms），只过渡发光/颜色 */
+:is(body.theme-dark, body.theme-light) .workspace-tab-header,
+:is(body.theme-dark, body.theme-light) .nav-file-title,
+:is(body.theme-dark, body.theme-light) .nav-folder-title,
+:is(body.theme-dark, body.theme-light) button,
+:is(body.theme-dark, body.theme-light) .clickable-icon {
+  transition: box-shadow 0.12s ease-out, background-color 0.12s ease-out, border-color 0.12s ease-out, color 0.12s ease-out;
+}
+
+/* ---------- 语法高亮（高饱和霓虹） ---------- */
+body.theme-dark {
+  --code-comment: #4d6468;
+  --code-keyword: #ff00ff;
+  --code-string: #ffff00;
+  --code-function: #00ffff;
+  --code-value: #ff6bff;
+  --code-property: #00ffcc;
+  --code-tag: #ff00ff;
+  --code-operator: #7aa2a8;
+  --code-punctuation: #7aa2a8;
+}
+
+/* ---------- 对侧模式调色板（body.theme-light）：随基础模式无缝切换 ---------- */
+body.theme-light {  --table-row-background-hover: rgba(0, 110, 140, 0.08);
+  --table-row-alt-background: transparent;
+  --table-column-alt-background: #f2fbfd;
+  --table-header-color: #062a33;
+  --table-background: transparent;
+
+  --code-comment: #6b8791;
+  --code-keyword: #b0006b;
+  --code-string: #7a6f00;
+  --code-function: #00688c;
+  --code-value: #9a4b00;
+  --code-property: #046d5a;
+  --code-tag: #b0006b;
+  --code-operator: #4a6a74;
+  --code-punctuation: #6b8791;
+  --background-primary: #f2fbfd;
+  --background-primary-alt: #e9f7fa;
+  --background-secondary: #e6f4f8;
+  --background-secondary-alt: #dfeef3;
+  --background-modifier-border: rgba(0, 90, 120, 0.25);
+  --background-modifier-border-hover: rgba(0, 90, 120, 0.4);
+  --background-modifier-border-focus: rgba(0, 120, 150, 0.6);
+  --background-modifier-hover: rgba(0, 110, 140, 0.07);
+  --background-modifier-active-hover: rgba(0, 110, 140, 0.12);
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-box-shadow: rgba(0, 195, 255, 0.3);
+  --background-modifier-success: rgba(0, 255, 0, 0.15);
+  --background-modifier-error: rgba(255, 5, 6, 0.15);
+  --text-on-accent: #0a0a0f;
+  --accent-h: 193;
+  --accent-s: 100%;
+  --accent-l: 33%;
+  --text-accent: #00789a;
+  --text-accent-hover: #006078;
+  --interactive-normal: #e9f7fa;
+  --interactive-hover: #dcf0f5;
+  --interactive-accent: #0086a8;
+  --interactive-accent-hover: #00748f;
+  --text-normal: #062a33;
+  --text-muted: #3d5c66;
+  --text-faint: #628089;
+  --text-selection: rgba(0, 134, 168, 0.18);
+  --text-highlight-bg: rgba(180, 140, 0, 0.18);
+  --text-error: #ff0506;
+  --link-color: #00789a;
+  --link-color-hover: #006078;
+  --link-external-color: #b0006b;
+  --link-external-color-hover: #8a0052;
+  --link-unresolved-color: rgba(255, 5, 6, 0.8);
+  --tag-color: #b0006b;
+  --tag-background: rgba(176, 0, 107, 0.08);
+  --tag-background-hover: rgba(176, 0, 107, 0.16);
+  --tag-border-color: rgba(176, 0, 107, 0.4);
+  --titlebar-background: #e6f4f8;
+  --titlebar-background-focused: #f2fbfd;
+  --titlebar-text-color: #3d5c66;
+  --titlebar-text-color-focused: #062a33;
+  --tab-outline-color: rgba(0, 255, 255, 0.16);
+  --tab-text-color: #8aa3a8;
+  --tab-text-color-focused: #c7f5f5;
+  --tab-text-color-focused-active: #00789a;
+  --radius-s: 3px;
+  --radius-m: 4px;
+  --radius-l: 6px;
+  --radius-xl: 8px;
+  --input-radius: 4px;
+  --button-radius: 4px;
+  --tab-radius: 4px;
+  --checkbox-radius: 2px;
+  --code-background: #e9f7fa;
+  --code-normal: #0d3a46;
+  --blockquote-border-color: rgba(0, 255, 255, 0.4);
+  --table-header-background: #dcf0f5;
+  --h1-color: #062a33;
+  --h2-color: #006078;
+  --h3-color: #006078;
+  --h4-color: #062a33;
+  --h5-color: #3d5c66;
+  --h6-color: #3d5c66;
+  --inline-title-color: #062a33;
+  --font-interface-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", "Microsoft YaHei", monospace;
+  --font-text-theme: -apple-system, "Segoe UI", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-monospace-theme: "Cascadia Mono", "JetBrains Mono", ui-monospace, Consolas, "SF Mono", Menlo, "霞鹜文楷", monospace;
+  --fx-title-glow: 0 0 12px rgba(0, 110, 140, 0.28);
+  --fx-link-glow: 0 0 7px rgba(0, 110, 140, 0.25);
+  --fx-active-glow: 0 0 10px rgba(0, 110, 140, 0.28);
+  --fx-panel-glow: 0 0 8px rgba(0, 110, 140, 0.12), 0 0 2px rgba(0, 110, 140, 0.30);
+  --fx-code-scanlines: repeating-linear-gradient(0deg, rgba(0, 110, 140, 0.04) 0px, rgba(0, 110, 140, 0.04) 1px, transparent 1px, transparent 3px);
+  --fx-scanlines: repeating-linear-gradient(0deg, rgba(0, 255, 255, 0.025) 0px, rgba(0, 255, 255, 0.025) 1px, transparent 1px, transparent 3px);
+  --cpn-glow-rgb: 0, 110, 140;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-light .cm-cursor { border-left-color: #00789a; }
+body.theme-light .workspace-leaf.mod-active .view-header {
+  border-bottom: 1px solid rgba(0, 90, 120, 0.35);
+  box-shadow: 0 4px 12px -6px rgba(0, 110, 140, 0.35);
+}
+body.theme-light .nav-file-title.is-active { box-shadow: inset 0 0 12px rgba(0, 110, 140, 0.10); border-left: 2px solid #00789a; }
+body.theme-light .status-bar { border-top: 1px solid rgba(0, 90, 120, 0.30); color: #3d5c66; }
+body.theme-light .search-input-container input, body.theme-light input.prompt-input {
+  background: #ffffff; border: 1px solid rgba(0, 90, 120, 0.30); color: #062a33;
+}
+body.theme-light .search-input-container input:focus, body.theme-light input.prompt-input:focus {
+  border-color: #0086a8; box-shadow: 0 0 10px rgba(0, 110, 140, 0.25);
+}
+body.theme-light .prompt { background: rgba(242, 251, 253, 0.97); border: 1px solid rgba(0, 90, 120, 0.35); }
+body.theme-light .suggestion-item.is-selected { background: rgba(0, 110, 140, 0.10); box-shadow: inset 0 0 14px rgba(0, 110, 140, 0.10); }
+body.theme-light blockquote { border-left-color: rgba(0, 110, 140, 0.45); }
+

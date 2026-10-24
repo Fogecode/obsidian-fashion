@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>obsidian-fashion poster</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: "Segoe UI", "Microsoft YaHei", sans-serif; background:#FFDD00; padding:56px; width:1560px; }
+  .frame { border:6px solid #101010; background:#fffdf2; box-shadow:18px 18px 0 #101010; padding:44px 44px 30px; }
+  header { border-bottom:6px solid #101010; padding-bottom:26px; margin-bottom:34px; }
+  .badge { display:inline-block; background:#e30613; color:#fff; font-weight:900; padding:4px 14px; transform:rotate(-2deg); letter-spacing:.2em; font-size:15px; border:3px solid #101010; box-shadow:4px 4px 0 #101010; }
+  h1 { font-size:74px; font-weight:900; letter-spacing:-0.03em; color:#101010; margin:18px 0 6px; }
+  h1 em { font-style:normal; color:#e30613; }
+  .tag-cn { font-size:26px; font-weight:700; color:#101010; }
+  .tag-en { font-size:17px; color:#4a4a4a; margin-top:6px; font-style:italic; }
+  .grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; }
+  .card { border:4px solid #101010; background:#fff; box-shadow:8px 8px 0 #101010; display:flex; flex-direction:column; }
+  .halves { display:flex; height:132px; border-bottom:4px solid #101010; }
+  .half { flex:1; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .half + .half { border-left:4px solid #101010; }
+  .bar { position:absolute; top:0; left:0; right:0; height:22px; }
+  .dot { position:absolute; top:36px; left:14px; width:10px; height:10px; }
+  .tt { position:absolute; top:32px; left:32px; font-size:15px; font-weight:700; }
+  .ln { position:absolute; left:14px; right:34px; bottom:44px; height:5px; border-radius:3px; background:currentColor; opacity:.5; }
+  .ln.short { right:52%; bottom:32px; opacity:.35; }
+  .chip { position:absolute; bottom:8px; right:8px; font-size:10px; font-weight:900; padding:2px 8px; letter-spacing:.08em; border:2px solid #101010; }
+  .meta { padding:12px 14px 14px; }
+  .row1 { display:flex; justify-content:space-between; align-items:center; }
+  .num { font-size:13px; font-weight:900; color:#101010; letter-spacing:.1em; }
+  .tags i { font-style:normal; background:#FFDD00; border:2px solid #101010; font-size:11px; font-weight:700; padding:1px 8px; margin-left:6px; }
+  .name { font-size:21px; font-weight:900; color:#101010; margin-top:8px; }
+  .name span { font-size:12px; font-weight:600; color:#7a7a7a; margin-left:8px; letter-spacing:.02em; }
+  .meta p { font-size:12.5px; color:#4a4a4a; margin-top:6px; line-height:1.55; }
+  footer { border-top:6px solid #101010; margin-top:34px; padding-top:16px; display:flex; justify-content:space-between; align-items:center; }
+  footer .l { font-weight:900; color:#101010; font-size:16px; letter-spacing:.04em; }
+  footer .r { font-size:13px; color:#4a4a4a; font-weight:600; }
+</style></head>
+<body>
+  <div class="frame">
+    <header>
+      <span class="badge">每件外套 · 两面穿</span>
+      <h1>obsidian-<em>fashion</em></h1>
+      <div class="tag-cn">一间 Obsidian 时装柜 —— 一件主题，深浅两副面孔</div>
+      <div class="tag-cn" style="font-size:17px;color:#4a4a4a;font-weight:600">Themes fashioned from the web, worn in two ways (dark &amp; light).</div>
+    </header>
+    <div class="grid">
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#2c2c2e">
+      <div class="bar" style="background:#1c1c1e;border-bottom:2px solid #0868cc"></div>
+      <div class="dot" style="background:#0868cc;box-shadow:0 0 10px #0868cc55"></div>
+      <div class="tt" style="color:rgba(255, 255, 255, 0.95)">macOS 毛玻璃</div>
+      <div class="ln" style="color:rgba(255, 255, 255, 0.7)"></div>
+      <div class="ln short" style="color:rgba(255, 255, 255, 0.7)"></div>
+      <div class="chip" style="background:#0868cc;color:#ffffff">深 DARK</div>
+    </div>
+    <div class="half" style="background:#ffffff">
+      <div class="bar" style="background:#f5f5f7;border-bottom:2px solid #0068d9"></div>
+      <div class="dot" style="background:#0068d9;box-shadow:0 0 10px #0068d955"></div>
+      <div class="tt" style="color:#1d1d1f">macOS 毛玻璃</div>
+      <div class="ln" style="color:rgba(0, 0, 0, 0.55)"></div>
+      <div class="ln short" style="color:rgba(0, 0, 0, 0.55)"></div>
+      <div class="chip" style="background:#0068d9;color:#ffffff">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">01 / 12</span>
+        <span class="tags"><i>毛玻璃</i><i>克制</i></span></div>
+      <div class="name">macOS 毛玻璃<span>macOS Vibrancy</span></div>
+      <p>三层深灰 + 侧栏毛玻璃 + 衬线标题，Apple 桌面的沉稳质感。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#0a0a0f">
+      <div class="bar" style="background:#07070c;border-bottom:2px solid #00ffff"></div>
+      <div class="dot" style="background:#00ffff;box-shadow:0 0 10px #00ffff55"></div>
+      <div class="tt" style="color:#e8fbfb">赛博朋克霓虹</div>
+      <div class="ln" style="color:#8aa3a8"></div>
+      <div class="ln short" style="color:#8aa3a8"></div>
+      <div class="chip" style="background:#00ffff;color:#0a0a0f">深 DARK</div>
+    </div>
+    <div class="half" style="background:#f2fbfd">
+      <div class="bar" style="background:#e6f4f8;border-bottom:2px solid #0086a8"></div>
+      <div class="dot" style="background:#0086a8;box-shadow:0 0 10px #0086a855"></div>
+      <div class="tt" style="color:#062a33">赛博朋克霓虹</div>
+      <div class="ln" style="color:#3d5c66"></div>
+      <div class="ln short" style="color:#3d5c66"></div>
+      <div class="chip" style="background:#0086a8;color:#0a0a0f">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">02 / 12</span>
+        <span class="tags"><i>霓虹</i><i>高饱和</i></span></div>
+      <div class="name">赛博朋克霓虹<span>Cyberpunk Neon</span></div>
+      <p>近黑底上的青色霓虹与品红标签，夜之城同款发光。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#0f0f1a">
+      <div class="bar" style="background:#0b0b13;border-bottom:2px solid #7c3aed"></div>
+      <div class="dot" style="background:#7c3aed;box-shadow:0 0 10px #7c3aed55"></div>
+      <div class="tt" style="color:#e0e0ff">赛博动漫 HUD</div>
+      <div class="ln" style="color:#9c9cc4"></div>
+      <div class="ln short" style="color:#9c9cc4"></div>
+      <div class="chip" style="background:#7c3aed;color:#ffffff">深 DARK</div>
+    </div>
+    <div class="half" style="background:#f7f5fe">
+      <div class="bar" style="background:#efeafd;border-bottom:2px solid #6d28d9"></div>
+      <div class="dot" style="background:#6d28d9;box-shadow:0 0 10px #6d28d955"></div>
+      <div class="tt" style="color:#241a3d">赛博动漫 HUD</div>
+      <div class="ln" style="color:#5f5580"></div>
+      <div class="ln short" style="color:#5f5580"></div>
+      <div class="chip" style="background:#6d28d9;color:#ffffff">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">03 / 12</span>
+        <span class="tags"><i>HUD</i><i>机甲</i></span></div>
+      <div class="name">赛博动漫 HUD<span>Cyber Anime</span></div>
+      <p>角框面板、六边形网格与多层辉光，驾驶舱式界面。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#0a0a0a">
+      <div class="bar" style="background:#0d0d0d;border-bottom:2px solid #00ffff"></div>
+      <div class="dot" style="background:#00ffff;box-shadow:0 0 10px #00ffff55"></div>
+      <div class="tt" style="color:#f2f2f2">故障艺术</div>
+      <div class="ln" style="color:#a0a0a0"></div>
+      <div class="ln short" style="color:#a0a0a0"></div>
+      <div class="chip" style="background:#00ffff;color:#0a0a0a">深 DARK</div>
+    </div>
+    <div class="half" style="background:#fafafa">
+      <div class="bar" style="background:#f4f4f4;border-bottom:2px solid #0086a8"></div>
+      <div class="dot" style="background:#0086a8;box-shadow:0 0 10px #0086a855"></div>
+      <div class="tt" style="color:#141414">故障艺术</div>
+      <div class="ln" style="color:#4d4d4d"></div>
+      <div class="ln short" style="color:#4d4d4d"></div>
+      <div class="chip" style="background:#0086a8;color:#0a0a0a">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">04 / 12</span>
+        <span class="tags"><i>故障</i><i>高对比</i></span></div>
+      <div class="name">故障艺术<span>Glitch Art</span></div>
+      <p>CMY 三色 RGB 分离标题 + 全等宽零圆角，信号腐蚀美学。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#0b0f0b">
+      <div class="bar" style="background:#0d130d;border-bottom:2px solid #33ff66"></div>
+      <div class="dot" style="background:#33ff66;box-shadow:0 0 10px #33ff6655"></div>
+      <div class="tt" style="color:#cfe0cf">磷光终端</div>
+      <div class="ln" style="color:#7f9a80"></div>
+      <div class="ln short" style="color:#7f9a80"></div>
+      <div class="chip" style="background:#33ff66;color:#04120a">深 DARK</div>
+    </div>
+    <div class="half" style="background:#f7faf5">
+      <div class="bar" style="background:#eef4ec;border-bottom:2px solid #0c7a36"></div>
+      <div class="dot" style="background:#0c7a36;box-shadow:0 0 10px #0c7a3655"></div>
+      <div class="tt" style="color:#17301c">磷光终端</div>
+      <div class="ln" style="color:#40604a"></div>
+      <div class="ln short" style="color:#40604a"></div>
+      <div class="chip" style="background:#0c7a36;color:#ffffff">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">05 / 12</span>
+        <span class="tags"><i>终端</i><i>极客</i></span></div>
+      <div class="name">磷光终端<span>Terminal Phosphor</span></div>
+      <p>## 提示符标题 + 闪烁块光标，一台安静的 CRT。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#2e3440">
+      <div class="bar" style="background:#292f3a;border-bottom:2px solid #88c0d0"></div>
+      <div class="dot" style="background:#88c0d0;box-shadow:0 0 10px #88c0d055"></div>
+      <div class="tt" style="color:#d8dee9">极地 Nord</div>
+      <div class="ln" style="color:#9aa6ba"></div>
+      <div class="ln short" style="color:#9aa6ba"></div>
+      <div class="chip" style="background:#88c0d0;color:#2e3440">深 DARK</div>
+    </div>
+    <div class="half" style="background:#eceff4">
+      <div class="bar" style="background:#e5e9f0;border-bottom:2px solid #3a5a86"></div>
+      <div class="dot" style="background:#3a5a86;box-shadow:0 0 10px #3a5a8655"></div>
+      <div class="tt" style="color:#2e3440">极地 Nord</div>
+      <div class="ln" style="color:#4c566a"></div>
+      <div class="ln short" style="color:#4c566a"></div>
+      <div class="chip" style="background:#3a5a86;color:#ffffff">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">06 / 12</span>
+        <span class="tags"><i>Nord</i><i>夜读</i></span></div>
+      <div class="name">极地 Nord<span>Nord Dark</span></div>
+      <p>Nord 官方双色板（Dark/Light），长文夜读的舒适区。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#201b15">
+      <div class="bar" style="background:#241e17;border-bottom:2px solid #d0704f"></div>
+      <div class="dot" style="background:#d0704f;box-shadow:0 0 10px #d0704f55"></div>
+      <div class="tt" style="color:#e6dcc8">印刷纸感</div>
+      <div class="ln" style="color:#a89a7f"></div>
+      <div class="ln short" style="color:#a89a7f"></div>
+      <div class="chip" style="background:#d0704f;color:#201b15">深 DARK</div>
+    </div>
+    <div class="half" style="background:#faf7f0">
+      <div class="bar" style="background:#f3ede1;border-bottom:2px solid #8c3b26"></div>
+      <div class="dot" style="background:#8c3b26;box-shadow:0 0 10px #8c3b2655"></div>
+      <div class="tt" style="color:#2f2b26">印刷纸感</div>
+      <div class="ln" style="color:#7a7066"></div>
+      <div class="ln short" style="color:#7a7066"></div>
+      <div class="chip" style="background:#8c3b26;color:#fffaf3">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">07 / 12</span>
+        <span class="tags"><i>印刷</i><i>衬线</i></span></div>
+      <div class="name">印刷纸感<span>Paper</span></div>
+      <p>暖米白纸面 + 衬线正文 + 章节短线，笔记读成散文。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#121212">
+      <div class="bar" style="background:#161616;border-bottom:2px solid #FFDD00"></div>
+      <div class="dot" style="background:#FFDD00;box-shadow:0 0 10px #FFDD0055"></div>
+      <div class="tt" style="color:#f5f5f5">新粗野主义</div>
+      <div class="ln" style="color:#b5b5b5"></div>
+      <div class="ln short" style="color:#b5b5b5"></div>
+      <div class="chip" style="background:#FFDD00;color:#101010">深 DARK</div>
+    </div>
+    <div class="half" style="background:#fffdf2">
+      <div class="bar" style="background:#fffdf2;border-bottom:2px solid #FFDD00"></div>
+      <div class="dot" style="background:#FFDD00;box-shadow:0 0 10px #FFDD0055"></div>
+      <div class="tt" style="color:#101010">新粗野主义</div>
+      <div class="ln" style="color:#4a4a4a"></div>
+      <div class="ln short" style="color:#4a4a4a"></div>
+      <div class="chip" style="background:#FFDD00;color:#101010">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">08 / 12</span>
+        <span class="tags"><i>强对比</i><i>高饱和</i></span></div>
+      <div class="name">新粗野主义<span>Neo-Brutalist</span></div>
+      <p>黑框 + 硬偏移阴影 + 酸黄，块块带边、见棱见角。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#191919">
+      <div class="bar" style="background:#141414;border-bottom:2px solid #ff2b36"></div>
+      <div class="dot" style="background:#ff2b36;box-shadow:0 0 10px #ff2b3655"></div>
+      <div class="tt" style="color:#f2f2f2">瑞士国际主义</div>
+      <div class="ln" style="color:#a8a8a8"></div>
+      <div class="ln short" style="color:#a8a8a8"></div>
+      <div class="chip" style="background:#ff2b36;color:#141414">深 DARK</div>
+    </div>
+    <div class="half" style="background:#ffffff">
+      <div class="bar" style="background:#fafafa;border-bottom:2px solid #e30613"></div>
+      <div class="dot" style="background:#e30613;box-shadow:0 0 10px #e3061355"></div>
+      <div class="tt" style="color:#111111">瑞士国际主义</div>
+      <div class="ln" style="color:#6b6b6b"></div>
+      <div class="ln short" style="color:#6b6b6b"></div>
+      <div class="chip" style="background:#e30613;color:#ffffff">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">09 / 12</span>
+        <span class="tags"><i>网格</i><i>极简</i></span></div>
+      <div class="name">瑞士国际主义<span>Swiss</span></div>
+      <p>发丝线网格 + 单点红 + 巨型紧字距标题，理性至上。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#002b36">
+      <div class="bar" style="background:#01323e;border-bottom:2px solid #b58900"></div>
+      <div class="dot" style="background:#b58900;box-shadow:0 0 10px #b5890055"></div>
+      <div class="tt" style="color:#93a1a1">经典 Solarized</div>
+      <div class="ln" style="color:#657b83"></div>
+      <div class="ln short" style="color:#657b83"></div>
+      <div class="chip" style="background:#b58900;color:#002b36">深 DARK</div>
+    </div>
+    <div class="half" style="background:#fdf6e3">
+      <div class="bar" style="background:#f5efdc;border-bottom:2px solid #b58900"></div>
+      <div class="dot" style="background:#b58900;box-shadow:0 0 10px #b5890055"></div>
+      <div class="tt" style="color:#586e75">经典 Solarized</div>
+      <div class="ln" style="color:#839496"></div>
+      <div class="ln short" style="color:#839496"></div>
+      <div class="chip" style="background:#b58900;color:#002b36">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">10 / 12</span>
+        <span class="tags"><i>Solarized</i><i>护眼</i></span></div>
+      <div class="name">经典 Solarized<span>Solarized Light</span></div>
+      <p>Ethan Schoonover 官方双模式配色，久看不腻。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#17130f">
+      <div class="bar" style="background:#1a1611;border-bottom:2px solid #d65a4b"></div>
+      <div class="dot" style="background:#d65a4b;box-shadow:0 0 10px #d65a4b55"></div>
+      <div class="tt" style="color:#ece2d2">杂志跨页</div>
+      <div class="ln" style="color:#a39681"></div>
+      <div class="ln short" style="color:#a39681"></div>
+      <div class="chip" style="background:#d65a4b;color:#ffffff">深 DARK</div>
+    </div>
+    <div class="half" style="background:#fbf9f6">
+      <div class="bar" style="background:#f6f2ec;border-bottom:2px solid #b23a2f"></div>
+      <div class="dot" style="background:#b23a2f;box-shadow:0 0 10px #b23a2f55"></div>
+      <div class="tt" style="color:#1c1a18">杂志跨页</div>
+      <div class="ln" style="color:#6f675f"></div>
+      <div class="ln short" style="color:#6f675f"></div>
+      <div class="chip" style="background:#b23a2f;color:#ffffff">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">11 / 12</span>
+        <span class="tags"><i>排版</i><i>优雅</i></span></div>
+      <div class="name">杂志跨页<span>Magazine</span></div>
+      <p>居中报头双细线 + 首字下沉 + 大引号，笔记变刊物。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="halves">
+    <div class="half" style="background:#0d1117">
+      <div class="bar" style="background:#010409;border-bottom:2px solid #4493f8"></div>
+      <div class="dot" style="background:#4493f8;box-shadow:0 0 10px #4493f855"></div>
+      <div class="tt" style="color:#e6edf3">Primer 文档风</div>
+      <div class="ln" style="color:#8b949e"></div>
+      <div class="ln short" style="color:#8b949e"></div>
+      <div class="chip" style="background:#4493f8;color:#ffffff">深 DARK</div>
+    </div>
+    <div class="half" style="background:#ffffff">
+      <div class="bar" style="background:#f6f8fa;border-bottom:2px solid #0969da"></div>
+      <div class="dot" style="background:#0969da;box-shadow:0 0 10px #0969da55"></div>
+      <div class="tt" style="color:#1f2328">Primer 文档风</div>
+      <div class="ln" style="color:#59636e"></div>
+      <div class="ln short" style="color:#59636e"></div>
+      <div class="chip" style="background:#0969da;color:#ffffff">浅 LIGHT</div>
+    </div></div>
+    <div class="meta">
+      <div class="row1"><span class="num">12 / 12</span>
+        <span class="tags"><i>文档</i><i>耐看</i></span></div>
+      <div class="name">Primer 文档风<span>GitHub</span></div>
+      <p>README 式标题底线 + 官方 GitHub Dark，程序员母语。</p>
+    </div>
+  </div></div>
+    <footer>
+      <div class="l">obsidian-fashion · v2.0.1 · MIT</div>
+      <div class="r">Typeset 作品家族 × github.com/Fogecode/obsidian-fashion</div>
+    </footer>
+  </div>
+</body></html>

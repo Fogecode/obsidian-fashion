@@ -1,0 +1,300 @@
+/* ==========================================================================
+   macOS Vibrancy — macOS 原生暗色毛玻璃
+   来源：luckymaomi 风格库 /ui/styles/macos-vibrancy/（三层灰体系 + 1px 哲学 + 无装饰）
+   ---------------------------------------------------------------------------
+   特效档位（改下面两个值即可切换）：
+     · 静态档 : --fx-vibrancy-blur: none;  --fx-vibrancy-alpha: 1;
+     · 轻特效 : 默认值（侧栏毛玻璃，性能友好）
+   规则出处：无渐变装饰、无发光、阴影≤2px、边框一律 1px 半透明白。
+   ========================================================================== */
+
+/* ---------- 特效开关 ---------- */
+body.theme-dark {
+  /* 静态档把 blur 设为 none、alpha 设为 1（侧栏变纯色） */
+  --fx-vibrancy-blur: blur(20px) saturate(180%);
+  --fx-vibrancy-alpha: 0.78;
+}
+
+/* ---------- 变量映射层（三层灰：#1c1c1e 深 → #2c2c2e 中 → #3a3a3c 浅） ---------- */
+body.theme-dark {
+  --background-primary: #2c2c2e;
+  --background-primary-alt: #3a3a3c;
+  --background-secondary: #1c1c1e;
+  --background-secondary-alt: #232326;
+  --background-modifier-border: rgba(255, 255, 255, 0.08);
+  --background-modifier-border-hover: rgba(255, 255, 255, 0.12);
+  --background-modifier-border-focus: rgba(255, 255, 255, 0.25);
+  --background-modifier-hover: rgba(255, 255, 255, 0.05);
+  --background-modifier-active-hover: rgba(255, 255, 255, 0.08);
+  --background-modifier-form-field: #1c1c1e;
+  --background-modifier-box-shadow: rgba(0, 0, 0, 0.3);
+  --background-modifier-success: rgba(48, 209, 88, 0.18);
+  --background-modifier-error: rgba(255, 69, 58, 0.18);
+  --text-on-accent: #ffffff;
+  --accent-h: 210;
+  --accent-s: 100%;
+  --accent-l: 52%;
+  --text-accent: #409cff;
+  --text-accent-hover: #5db3ff;
+
+  --interactive-normal: #3a3a3c;
+  --interactive-hover: #48484a;
+  --interactive-accent: #0868cc;
+  --interactive-accent-hover: #0977e8;
+
+  --text-normal: rgba(255, 255, 255, 0.95);
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --text-faint: rgba(255, 255, 255, 0.4);
+  --text-selection: rgba(10, 132, 255, 0.25);
+  --text-highlight-bg: rgba(255, 159, 10, 0.25);
+
+  --link-color: #409cff;
+  --link-color-hover: #5db3ff;
+  --link-external-color: #409cff;
+  --link-external-color-hover: #5db3ff;
+  --link-unresolved-color: rgba(255, 69, 58, 0.8);
+
+  --titlebar-background: #1c1c1e;
+  --titlebar-background-focused: #232326;
+  --titlebar-text-color: rgba(255, 255, 255, 0.7);
+  --titlebar-text-color-focused: rgba(255, 255, 255, 0.95);
+
+  --tab-outline-color: rgba(255, 255, 255, 0.08);
+  --tab-text-color-focused-active: rgba(255, 255, 255, 0.95);
+
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-l: 10px;
+  --radius-xl: 12px;
+  --input-radius: 6px;
+  --button-radius: 6px;
+  --tab-radius: 6px;
+  --checkbox-radius: 4px;
+
+  --code-background: #1c1c1e;
+  --code-normal: rgba(255, 255, 255, 0.85);
+  --blockquote-border-color: rgba(255, 255, 255, 0.12);
+  --table-header-background: #232326;
+
+  --h1-color: rgba(255, 255, 255, 0.95);
+  --h2-color: rgba(255, 255, 255, 0.95);
+  --h3-color: rgba(255, 255, 255, 0.95);
+  --h4-color: rgba(255, 255, 255, 0.95);
+  --h5-color: rgba(255, 255, 255, 0.85);
+  --h6-color: rgba(255, 255, 255, 0.7);
+  --inline-title-color: rgba(255, 255, 255, 0.95);
+
+  --nav-item-background-active: rgba(255, 255, 255, 0.1);
+  --nav-item-color-active: rgba(255, 255, 255, 0.95);
+
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-monospace-theme: "SF Mono", "Cascadia Mono", Consolas, Menlo, "Liberation Mono", monospace;
+}
+
+/* ---------- 排版驱动：衬线标题 + 无衬线正文（等宽代码走 --font-monospace-theme） ---------- */
+:is(body.theme-dark, body.theme-light) .inline-title,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h1,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h2,
+:is(body.theme-dark, body.theme-light) .markdown-preview-view h3,
+:is(body.theme-dark, body.theme-light) .cm-header-1,
+:is(body.theme-dark, body.theme-light) .cm-header-2,
+:is(body.theme-dark, body.theme-light) .cm-header-3 {
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Songti SC", SimSun, serif;
+}
+
+/* ---------- Vibrancy：侧栏毛玻璃（模拟 NSVisualEffectView） ---------- */
+
+/* 结构性明度微差（非装饰渐变）：给半透明侧栏提供纵深基底 */
+:is(body.theme-dark, body.theme-light) .app-container {
+  background: radial-gradient(120% 100% at 20% 0%, #212124 0%, #1c1c1e 60%);
+}
+
+:is(body.theme-dark, body.theme-light) .workspace-ribbon.mod-left,
+:is(body.theme-dark, body.theme-light) .workspace-split.mod-left-sidedock,
+:is(body.theme-dark, body.theme-light) .workspace-split.mod-right-sidedock {
+  background: rgba(28, 28, 30, var(--fx-vibrancy-alpha));
+  backdrop-filter: var(--fx-vibrancy-blur);
+  -webkit-backdrop-filter: var(--fx-vibrancy-blur);
+}
+
+/* 侧栏内的视图透明化，让毛玻璃真正显效 */
+:is(body.theme-dark, body.theme-light) .workspace-split.mod-sidedock .view-content {
+  background: transparent;
+}
+
+/* ---------- 交互：只变色，200ms ease-out，无位移无缩放 ---------- */
+:is(body.theme-dark, body.theme-light) .nav-file-title,
+:is(body.theme-dark, body.theme-light) .nav-folder-title,
+:is(body.theme-dark, body.theme-light) .workspace-tab-header,
+:is(body.theme-dark, body.theme-light) .clickable-icon,
+:is(body.theme-dark, body.theme-light) button,
+:is(body.theme-dark, body.theme-light) input[type="checkbox"] {
+  transition: background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+:is(body.theme-dark, body.theme-light) .nav-file-title:hover,
+:is(body.theme-dark, body.theme-light) .nav-folder-title:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+:is(body.theme-dark, body.theme-light) .nav-file-title.is-active,
+:is(body.theme-dark, body.theme-light) .nav-folder-title.is-active {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* 活动标签：微亮底 + 1px 描边，靠对比不靠阴影 */
+:is(body.theme-dark, body.theme-light) .workspace-tab-header.is-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 状态栏与标题栏同层 */
+:is(body.theme-dark, body.theme-light) .status-bar {
+  background: #1c1c1e;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 输入：暗色内嵌 + 细焦点环 */
+:is(body.theme-dark, body.theme-light) .search-input-container input,
+:is(body.theme-dark, body.theme-light) input.prompt-input {
+  background: #1c1c1e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:is(body.theme-dark, body.theme-light) .search-input-container input:focus,
+:is(body.theme-dark, body.theme-light) input.prompt-input:focus {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* 命令面板 / 快速切换 */
+:is(body.theme-dark, body.theme-light) .prompt {
+  background: rgba(28, 28, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+:is(body.theme-dark, body.theme-light) .suggestion-item.is-selected {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- 语法高亮（Xcode Dark 系，克制） ---------- */
+body.theme-dark {
+  --code-comment: #8e949c;
+  --code-keyword: #ff7ab2;
+  --code-string: #ff8170;
+  --code-value: #d0bf69;
+  --code-function: #d0a8ff;
+  --code-property: #78c2b3;
+  --code-tag: #ff7ab2;
+  --code-operator: #a8b0bd;
+  --code-punctuation: #a8b0bd;
+}
+
+/* ---------- 对侧模式调色板（body.theme-light）：随基础模式无缝切换 ---------- */
+body.theme-light {  --table-column-alt-background: #ffffff;
+  --table-header-color: #1d1d1f;
+  --tag-border-color: rgba(0, 104, 217, 0.35);
+  --tag-background-hover: rgba(0, 104, 217, 0.16);
+  --tag-background: rgba(0, 104, 217, 0.08);
+  --tag-color: #0068d9;
+
+  --code-comment: #70767f;
+  --code-keyword: #ad3da4;
+  --code-string: #d12f1b;
+  --code-value: #0f68a0;
+  --code-function: #3879c9;
+  --code-property: #426e0d;
+  --code-tag: #ad3da4;
+  --code-operator: #0f68a0;
+  --code-punctuation: #70767f;
+  --background-primary: #ffffff;
+  --background-primary-alt: #f5f5f7;
+  --background-secondary: #f5f5f7;
+  --background-secondary-alt: #ebebed;
+  --background-modifier-border: rgba(0, 0, 0, 0.10);
+  --background-modifier-border-hover: rgba(0, 0, 0, 0.16);
+  --background-modifier-border-focus: rgba(0, 0, 0, 0.30);
+  --background-modifier-hover: rgba(0, 0, 0, 0.04);
+  --background-modifier-active-hover: rgba(0, 0, 0, 0.08);
+  --background-modifier-form-field: #ffffff;
+  --background-modifier-box-shadow: rgba(0, 0, 0, 0.3);
+  --background-modifier-success: rgba(48, 209, 88, 0.18);
+  --background-modifier-error: rgba(255, 69, 58, 0.18);
+  --text-on-accent: #ffffff;
+  --accent-h: 210;
+  --accent-s: 100%;
+  --accent-l: 44%;
+  --text-accent: #0068d9;
+  --text-accent-hover: #0071e3;
+  --interactive-normal: #f5f5f7;
+  --interactive-hover: #ebebed;
+  --interactive-accent: #0068d9;
+  --interactive-accent-hover: #0071e3;
+  --text-normal: #1d1d1f;
+  --text-muted: rgba(0, 0, 0, 0.55);
+  --text-faint: rgba(0, 0, 0, 0.35);
+  --text-selection: rgba(0, 113, 227, 0.15);
+  --text-highlight-bg: rgba(255, 159, 10, 0.28);
+  --link-color: #0068d9;
+  --link-color-hover: #0071e3;
+  --link-external-color: #0068d9;
+  --link-external-color-hover: #0071e3;
+  --link-unresolved-color: rgba(255, 69, 58, 0.8);
+  --titlebar-background: #f5f5f7;
+  --titlebar-background-focused: #ffffff;
+  --titlebar-text-color: rgba(0, 0, 0, 0.45);
+  --titlebar-text-color-focused: #1d1d1f;
+  --tab-outline-color: rgba(255, 255, 255, 0.08);
+  --tab-text-color-focused-active: #0068d9;
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-l: 10px;
+  --radius-xl: 12px;
+  --input-radius: 6px;
+  --button-radius: 6px;
+  --tab-radius: 6px;
+  --checkbox-radius: 4px;
+  --code-background: #f5f5f7;
+  --code-normal: #1f1f24;
+  --blockquote-border-color: rgba(255, 255, 255, 0.12);
+  --table-header-background: #f5f5f7;
+  --h1-color: #1d1d1f;
+  --h2-color: #1d1d1f;
+  --h3-color: #1d1d1f;
+  --h4-color: #1d1d1f;
+  --h5-color: #414145;
+  --h6-color: #55555c;
+  --inline-title-color: #1d1d1f;
+  --nav-item-background-active: rgba(0, 0, 0, 0.08);
+  --nav-item-color-active: #1d1d1f;
+  --font-interface-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-text-theme: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-monospace-theme: "SF Mono", "Cascadia Mono", Consolas, Menlo, "Liberation Mono", monospace;
+  --fx-vibrancy-blur: blur(20px) saturate(180%);
+  --fx-vibrancy-alpha: 0.78;
+  --mv-hover: rgba(0, 0, 0, 0.05);
+  --mv-active: rgba(0, 0, 0, 0.08);
+  --mv-side: rgba(252, 252, 253, 0.78);
+  --mv-base-a: #ffffff;
+  --mv-base-b: #f0f0f3;
+  --mv-status: #f5f5f7;
+  --mv-input: #ffffff;
+}
+
+/* ---------- 对侧模式母题适配（硬编码色的对侧覆写，不碰原生规则） ---------- */
+body.theme-light .app-container { background: radial-gradient(120% 100% at 20% 0%, var(--mv-base-a) 0%, var(--mv-base-b) 60%); }
+body.theme-light .workspace-ribbon.mod-left,
+body.theme-light .workspace-split.mod-left-sidedock,
+body.theme-light .workspace-split.mod-right-sidedock { background: var(--mv-side); }
+body.theme-light .status-bar { background: var(--mv-status); border-top: 1px solid rgba(0, 0, 0, 0.10); }
+body.theme-light .nav-file-title:hover, body.theme-light .nav-folder-title:hover { background: var(--mv-hover); }
+body.theme-light .nav-file-title.is-active, body.theme-light .nav-folder-title.is-active { background: var(--mv-active); color: #1d1d1f; }
+body.theme-light .workspace-tab-header.is-active { background: var(--mv-active); }
+body.theme-light .search-input-container input, body.theme-light input.prompt-input {
+  background: var(--mv-input); border: 1px solid rgba(0, 0, 0, 0.10); color: #1d1d1f;
+}
+body.theme-light .search-input-container input:focus, body.theme-light input.prompt-input:focus { border-color: rgba(0, 0, 0, 0.30); }
+body.theme-light .prompt { background: rgba(252, 252, 253, 0.97); border: 1px solid rgba(0, 0, 0, 0.12); }
+body.theme-light .suggestion-item.is-selected { background: rgba(0, 0, 0, 0.08); }
+body.theme-light .view-header { border-bottom-color: rgba(0, 0, 0, 0.10); }
+
