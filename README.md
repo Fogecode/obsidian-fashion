@@ -17,27 +17,29 @@ obsidian-fashion（穿衣打扮）。
 
 ## 主题图册
 
+整体观感见顶部海报——每张卡片的深/浅两半，就是用该主题两种模式的真实配色画的。
+
 ### 深色基因（浅色为对侧配色）
 
-| 主题 | 深色 | 浅色 | 一句话 |
-| --- | --- | --- | --- |
-| macOS Vibrancy | ![macOS Vibrancy dark](screenshots/macOS Vibrancy-dark.png) | ![macOS Vibrancy light](screenshots/macOS Vibrancy-light.png) | 三层灰 + 侧栏毛玻璃 + 衬线标题（浅色为 macOS 官方浅灰系） |
-| Cyberpunk Neon | ![Cyberpunk Neon dark](screenshots/Cyberpunk Neon-dark.png) | ![Cyberpunk Neon light](screenshots/Cyberpunk Neon-light.png) | 近黑底青色霓虹 + 品红标签；浅色冰蓝日霓虹 |
-| Cyber Anime | ![Cyber Anime dark](screenshots/Cyber Anime-dark.png) | ![Cyber Anime light](screenshots/Cyber Anime-light.png) | 深紫 HUD 机甲：角框 callout + 六边形网格 |
-| Glitch Art | ![Glitch Art dark](screenshots/Glitch Art-dark.png) | ![Glitch Art light](screenshots/Glitch Art-light.png) | 纯黑 + CMY + 标题 RGB 分离 + 全等宽零圆角 |
-| Terminal Phosphor | ![Terminal Phosphor dark](screenshots/Terminal Phosphor-dark.png) | ![Terminal Phosphor light](screenshots/Terminal Phosphor-light.png) | 磷光绿终端：`##` 提示符标题 + 闪烁块光标 |
-| Nord Dark | ![Nord Dark dark](screenshots/Nord Dark-dark.png) | ![Nord Dark light](screenshots/Nord Dark-light.png) | Nord 极地夜读；浅色为官方 Nord Light |
+| 主题 | 深色面 | 浅色面 |
+| --- | --- | --- |
+| macOS Vibrancy | 三层深灰 + 侧栏毛玻璃 | macOS 官方浅灰系毛玻璃 |
+| Cyberpunk Neon | 近黑底 + 青色霓虹 + 品红标签 | 冰蓝日霓虹 |
+| Cyber Anime | 深紫 HUD：角框 callout + 六边形网格 | 淡紫日间 HUD |
+| Glitch Art | 纯黑 + CMY + 标题 RGB 分离 + 全等宽 | 复印纸风白底油墨色 |
+| Terminal Phosphor | 磷光绿终端：`##` 提示符 + 闪烁光标 | 纸带绿终端 |
+| Nord Dark | Nord 官方夜读配色 | Nord Light（官方） |
 
 ### 浅色基因（深色为对侧配色）
 
-| 主题 | 浅色 | 深色 | 一句话 |
-| --- | --- | --- | --- |
-| Paper | ![Paper light](screenshots/Paper-light.png) | ![Paper dark](screenshots/Paper-dark.png) | 暖米白印刷：衬线正文 + 章节短线；深色夜航书 |
-| Neo-Brutalist | ![Neo-Brutalist light](screenshots/Neo-Brutalist-light.png) | ![Neo-Brutalist dark](screenshots/Neo-Brutalist-dark.png) | 酸黄黑框硬阴影 + 零圆角；深色黑底白框黄影 |
-| Swiss | ![Swiss light](screenshots/Swiss-light.png) | ![Swiss dark](screenshots/Swiss-dark.png) | 国际主义网格 + 单点红；表格/代码框叠加态 |
-| Solarized Light | ![Solarized Light light](screenshots/Solarized Light-light.png) | ![Solarized Light dark](screenshots/Solarized Light-dark.png) | 经典 Solarized；深色为官方 Solarized Dark |
-| Magazine | ![Magazine light](screenshots/Magazine-light.png) | ![Magazine dark](screenshots/Magazine-dark.png) | 杂志跨页：居中报头 + 首字下沉 + 大引号 |
-| GitHub | ![GitHub light](screenshots/GitHub-light.png) | ![GitHub dark](screenshots/GitHub-dark.png) | Primer 文档风；深色为官方 GitHub Dark |
+| 主题 | 浅色面 | 深色面 |
+| --- | --- | --- |
+| Paper | 暖米白印刷：衬线正文 + 章节短线 | 夜航书：暖褐纸 + 亮赭 |
+| Neo-Brutalist | 酸黄 + 黑框 + 硬阴影 + 零圆角 | 黑底 + 白框 + 酸黄硬影 |
+| Swiss | 白底红点缀 + 发丝线网格 | 深灰 + 亮红 |
+| Solarized Light | 经典 Solarized Light | Solarized Dark（官方） |
+| Magazine | 米白刊物：居中报头 + 首字下沉 | 午夜刊：暖黑 + 亮牛血红 |
+| GitHub | Primer 文档风 | GitHub Dark（官方） |
 
 ## 安装
 

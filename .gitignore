@@ -2,3 +2,7 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# 本地素材：文档与截图只留本地，不上传
+docs/
+screenshots/
